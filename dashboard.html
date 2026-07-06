@@ -135,114 +135,120 @@
              DASHBOARD CONTENT
         ========================== -->
 
-        <section class="dashboard">
-
-            <div class="cards">
-
-                <div class="card">
-                    <h4>Total Employees</h4>
-                    <h2>125</h2>
-                    <p>Registered Employees</p>
-                </div>
-
-                <div class="card">
-                    <h4>Present Today</h4>
-                    <h2>98</h2>
-                    <p>Currently Working</p>
-                </div>
-
-                <div class="card">
-                    <h4>Projects</h4>
-                    <h2>12</h2>
-                    <p>Active Projects</p>
-                </div>
-
-                <div class="card">
-                    <h4>Pending Leave</h4>
-                    <h2>4</h2>
-                    <p>Awaiting Approval</p>
-                </div>
-
-            </div>
-
-        </section>
-        </div>
-
-<!-- =========================
-     DASHBOARD GRID
+    <!-- =========================
+     DASHBOARD
 ========================= -->
 
-<div class="dashboard-grid">
+<section class="dashboard">
 
-    <!-- Attendance Overview -->
+    <!-- Statistics -->
+    <section class="stats-section">
 
-    <div class="card large-card">
+        <div class="cards">
 
-        <div class="card-header">
+            <div class="card employee-card">
 
-            <h3>Attendance Overview</h3>
+                <div class="card-icon">
+                    <i class="fa-solid fa-users"></i>
+                </div>
 
-            <button>View Report</button>
+                <div class="card-info">
 
-        </div>
+                    <span>Total Employees</span>
 
-        <div class="chart-placeholder">
+                    <h2 id="employeeCount">0</h2>
 
-            Attendance Chart Coming Soon
-
-        </div>
-
-    </div>
-
-    <!-- Employee Status -->
-
-    <div class="card">
-
-        <div class="card-header">
-
-            <h3>Employee Status</h3>
-
-        </div>
-
-        <div class="status-list">
-
-            <div class="status-item">
-
-                <span class="status working"></span>
-
-                <div>
-
-                    <strong>Juan Dela Cruz</strong>
-
-                    <small>Working</small>
+                    <small>Registered Employees</small>
 
                 </div>
 
             </div>
 
-            <div class="status-item">
+            <div class="card present-card">
 
-                <span class="status break"></span>
+                <div class="card-icon">
+                    <i class="fa-solid fa-user-check"></i>
+                </div>
 
-                <div>
+                <div class="card-info">
 
-                    <strong>Maria Santos</strong>
+                    <span>Present Today</span>
 
-                    <small>On Break</small>
+                    <h2 id="presentCount">0</h2>
+
+                    <small>Working Today</small>
 
                 </div>
 
             </div>
 
-            <div class="status-item">
+            <div class="card driver-card">
 
-                <span class="status timeout"></span>
+                <div class="card-icon">
+                    <i class="fa-solid fa-truck"></i>
+                </div>
 
-                <div>
+                <div class="card-info">
 
-                    <strong>Pedro Reyes</strong>
+                    <span>Drivers</span>
 
-                    <small>Time Out</small>
+                    <h2 id="driverCount">0</h2>
+
+                    <small>Active Drivers</small>
+
+                </div>
+
+            </div>
+
+            <div class="card project-card">
+
+                <div class="card-icon">
+                    <i class="fa-solid fa-folder-open"></i>
+                </div>
+
+                <div class="card-info">
+
+                    <span>Projects</span>
+
+                    <h2 id="projectCount">0</h2>
+
+                    <small>Ongoing Projects</small>
+
+                </div>
+
+            </div>
+
+            <div class="card leave-card">
+
+                <div class="card-icon">
+                    <i class="fa-solid fa-calendar-check"></i>
+                </div>
+
+                <div class="card-info">
+
+                    <span>Leave</span>
+
+                    <h2 id="leaveCount">0</h2>
+
+                    <small>Pending Requests</small>
+
+                </div>
+
+            </div>
+
+            <div class="card overtime-card">
+
+                <div class="card-icon">
+                    <i class="fa-solid fa-clock"></i>
+                </div>
+
+                <div class="card-info">
+
+                    <span>Overtime</span>
+
+                    <h2 id="otCount">0</h2>
+
+                    <small>Employees in OT</small>
 
                 </div>
 
@@ -250,12 +256,119 @@
 
         </div>
 
-    </div>
+    </section>
 
-</div>
+    <!-- Main Grid -->
+
+    <section class="dashboard-grid">
+
+        <!-- Attendance -->
+
+        <div class="card large-card">
+
+            <div class="card-header">
+
+                <h3>Attendance Overview</h3>
+
+                <button id="viewReportBtn">
+
+                    View Report
+
+                </button>
+
+            </div>
+
+            <canvas id="attendanceChart"></canvas>
+
+        </div>
+
+        <!-- Employee Status -->
+
+        <div class="card">
+
+            <div class="card-header">
+
+                <h3>Today's Status</h3>
+
+            </div>
+
+            <div id="employeeStatusList">
+
+                <!-- Dynamic -->
+
+            </div>
+
+        </div>
+
+        <!-- Recent Activity -->
+
+        <div class="card">
+
+            <div class="card-header">
+
+                <h3>Recent Activity</h3>
+
+            </div>
+
+            <div id="recentActivity">
+
+                <!-- Dynamic -->
+
+            </div>
+
+        </div>
+
+        <!-- Quick Actions -->
+
+        <div class="card">
+
+            <div class="card-header">
+
+                <h3>Quick Actions</h3>
+
+            </div>
+
+            <div class="quick-actions">
+
+                <button id="addEmployeeBtn">
+
+                    <i class="fa-solid fa-user-plus"></i>
+
+                    Add Employee
+
+                </button>
+
+                <button id="newProjectBtn">
+
+                    <i class="fa-solid fa-folder-plus"></i>
+
+                    New Project
+
+                </button>
+
+                <button id="leaveBtn">
+
+                    <i class="fa-solid fa-calendar-plus"></i>
+
+                    Leave Request
+
+                </button>
+
+                <button id="reportBtn">
+
+                    <i class="fa-solid fa-chart-line"></i>
+
+                    Reports
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
 
 </section>
-
     </main>
 
     <!-- JAVASCRIPT -->
