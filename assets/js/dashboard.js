@@ -21,21 +21,27 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function updateGreeting() {
 
+    const greeting = document.getElementById("greetingText");
+
     const hour = new Date().getHours();
 
-    let greeting = "Good Evening";
+    if(hour < 12){
 
-    if (hour >= 5 && hour < 12) {
-
-        greeting = "Good Morning";
-
-    } else if (hour >= 12 && hour < 18) {
-
-        greeting = "Good Afternoon";
+        greeting.textContent = "Good Morning 👋";
 
     }
 
-    console.log(greeting);
+    else if(hour < 18){
+
+        greeting.textContent = "Good Afternoon ☀️";
+
+    }
+
+    else{
+
+        greeting.textContent = "Good Evening 🌙";
+
+    }
 
 }
 
@@ -43,25 +49,29 @@ function updateGreeting() {
 // LIVE CLOCK
 // ==========================================
 
-function startClock() {
+function startClock(){
 
-    setInterval(() => {
+    const clock = document.getElementById("liveClock");
+
+    function update(){
 
         const now = new Date();
 
-        const time = now.toLocaleTimeString([], {
+        clock.textContent = now.toLocaleTimeString([],{
 
-            hour: "2-digit",
-            minute: "2-digit"
+            hour:'2-digit',
+
+            minute:'2-digit'
 
         });
 
-        console.log(time);
+    }
 
-    }, 1000);
+    update();
+
+    setInterval(update,1000);
 
 }
-
 // ==========================================
 // QUICK ACTIONS
 // ==========================================
