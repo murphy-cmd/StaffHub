@@ -303,7 +303,103 @@
             </div>
 
         </section>
+<!-- ==========================================
+     ADD EMPLOYEE MODAL
+========================================== -->
 
+<div id="employeeModal" class="modal">
+
+    <div class="modal-content">
+
+        <div class="modal-header">
+
+            <h2>Add Employee</h2>
+
+            <button id="closeModal">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+        </div>
+
+        <div class="modal-body">
+
+            <div class="form-group">
+
+                <label>Employee ID</label>
+
+                <input
+                    type="text"
+                    id="employeeId"
+                    readonly
+                >
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Full Name</label>
+
+                <input
+                    type="text"
+                    id="fullName"
+                    placeholder="Enter Full Name"
+                >
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Staff Type</label>
+
+                <select id="staffType">
+
+                    <option value="">Select Staff Type</option>
+
+                    <option>Office Staff</option>
+
+                    <option>Warehouse Staff</option>
+
+                    <option>Driver</option>
+
+                </select>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Schedule</label>
+
+                <select id="scheduleMode">
+
+                    <option>Fixed</option>
+
+                    <option>Flexible</option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+        <div class="modal-footer">
+
+            <button id="cancelEmployee">
+
+                Cancel
+
+            </button>
+
+            <button id="saveEmployee">
+
+                Save Employee
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
     </main>
 
     <script src="assets/js/sidebar.js"></script>
