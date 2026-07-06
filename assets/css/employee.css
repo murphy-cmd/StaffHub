@@ -3,77 +3,79 @@
 ========================================== */
 
 .page-header{
-
     display:flex;
     justify-content:space-between;
     align-items:center;
     margin-bottom:25px;
-
 }
 
 .page-header h2{
-
-    font-size:28px;
-    margin-bottom:5px;
-
+    font-size:30px;
+    font-weight:700;
+    color:#1F2937;
 }
 
 .page-header p{
-
     color:#6B7280;
-
+    margin-top:6px;
 }
 
 .primary-btn{
-
     background:#2563EB;
     color:#fff;
     border:none;
-    padding:12px 20px;
+    padding:13px 22px;
     border-radius:12px;
     cursor:pointer;
     font-size:15px;
     font-weight:600;
-    display:flex;
-    align-items:center;
-    gap:10px;
     transition:.3s;
-
 }
 
 .primary-btn:hover{
-
     transform:translateY(-2px);
-
+    background:#1D4ED8;
 }
+
+/* ========================= */
 
 .table-card{
 
     background:#fff;
-    border-radius:18px;
-    box-shadow:0 10px 25px rgba(0,0,0,.08);
-    overflow:hidden;
+    border-radius:20px;
+    padding:25px;
+
+    box-shadow:0 15px 40px rgba(0,0,0,.06);
 
 }
 
 .table-header{
 
-    padding:20px;
-
-    border-bottom:1px solid #E5E7EB;
+    margin-bottom:20px;
 
 }
 
 .table-header input{
 
-    width:300px;
-    max-width:100%;
-    padding:12px 15px;
-    border:1px solid #D1D5DB;
-    border-radius:10px;
+    width:100%;
+    padding:14px 18px;
+
+    border:1px solid #E5E7EB;
+    border-radius:12px;
+
     outline:none;
 
+    font-size:15px;
+
 }
+
+.table-header input:focus{
+
+    border-color:#2563EB;
+
+}
+
+/* ========================= */
 
 table{
 
@@ -84,41 +86,57 @@ table{
 
 thead{
 
-    background:#F8FAFC;
+    background:#F9FAFB;
 
 }
 
 th{
 
     padding:16px;
+
     text-align:left;
+
+    color:#374151;
+
     font-size:14px;
-    color:#475569;
 
 }
 
 td{
 
-    padding:16px;
-    border-top:1px solid #F1F5F9;
+    padding:18px 16px;
+
+    border-bottom:1px solid #F1F5F9;
+
+}
+
+tbody tr{
+
+    transition:.3s;
 
 }
 
 tbody tr:hover{
 
-    background:#F8FAFC;
+    background:#F9FAFB;
 
 }
 
-/* ========= BADGES ========= */
+/* ========================= */
 
 .badge{
 
-    padding:7px 12px;
+    display:inline-block;
+
+    padding:7px 15px;
+
     border-radius:30px;
-    font-size:13px;
-    font-weight:600;
+
     color:#fff;
+
+    font-size:13px;
+
+    font-weight:600;
 
 }
 
@@ -136,36 +154,39 @@ tbody tr:hover{
 
 .driver{
 
-    background:#16A34A;
+    background:#10B981;
 
 }
 
-/* ========= ACTION BUTTONS ========= */
+/* ========================= */
 
 .edit-btn,
 .delete-btn{
 
     width:38px;
     height:38px;
+
     border:none;
+
     border-radius:10px;
+
     cursor:pointer;
+
+    color:#fff;
+
     margin-right:6px;
-    transition:.3s;
 
 }
 
 .edit-btn{
 
-    background:#DBEAFE;
-    color:#2563EB;
+    background:#2563EB;
 
 }
 
 .delete-btn{
 
-    background:#FEE2E2;
-    color:#DC2626;
+    background:#EF4444;
 
 }
 
@@ -176,39 +197,19 @@ tbody tr:hover{
 
 }
 
-/* ========= MOBILE ========= */
-
-@media(max-width:768px){
-
-.page-header{
-
-    flex-direction:column;
-    align-items:flex-start;
-    gap:15px;
-
-}
-
-.table-card{
-
-    overflow-x:auto;
-
-}
-
-table{
-
-    min-width:700px;
-
-}
-
-}
-/* ==========================================
+/* ==========================
    MODAL
-========================================== */
+========================== */
 
 .modal{
 
     position:fixed;
-    inset:0;
+
+    top:0;
+    left:0;
+
+    width:100%;
+    height:100%;
 
     background:rgba(0,0,0,.45);
 
@@ -229,7 +230,7 @@ table{
 
 .modal-content{
 
-    width:500px;
+    width:520px;
     max-width:95%;
 
     background:#fff;
@@ -237,6 +238,28 @@ table{
     border-radius:18px;
 
     overflow:hidden;
+
+    animation:popup .25s ease;
+
+}
+
+@keyframes popup{
+
+    from{
+
+        transform:scale(.9);
+
+        opacity:0;
+
+    }
+
+    to{
+
+        transform:scale(1);
+
+        opacity:1;
+
+    }
 
 }
 
@@ -254,13 +277,19 @@ table{
 
 }
 
-.modal-header button{
+.modal-header h2{
 
-    border:none;
+    font-size:24px;
+
+}
+
+.modal-header button{
 
     background:none;
 
-    font-size:20px;
+    border:none;
+
+    font-size:24px;
 
     cursor:pointer;
 
@@ -268,7 +297,7 @@ table{
 
 .modal-body{
 
-    padding:20px;
+    padding:22px;
 
 }
 
@@ -293,15 +322,26 @@ table{
 
     width:100%;
 
-    padding:12px;
+    padding:13px;
 
-    border:1px solid #ddd;
+    border:1px solid #E5E7EB;
 
     border-radius:10px;
 
     outline:none;
 
+    font-size:15px;
+
 }
+
+.form-group input:focus,
+.form-group select:focus{
+
+    border-color:#2563EB;
+
+}
+
+/* ========================= */
 
 .modal-footer{
 
@@ -309,7 +349,7 @@ table{
 
     justify-content:flex-end;
 
-    gap:10px;
+    gap:12px;
 
     padding:20px;
 
@@ -319,13 +359,15 @@ table{
 
 .modal-footer button{
 
-    padding:12px 18px;
-
     border:none;
+
+    padding:12px 18px;
 
     border-radius:10px;
 
     cursor:pointer;
+
+    font-weight:600;
 
 }
 
@@ -340,5 +382,35 @@ table{
     background:#2563EB;
 
     color:#fff;
+
+}
+
+/* ==========================
+   MOBILE
+========================== */
+
+@media(max-width:768px){
+
+.page-header{
+
+    flex-direction:column;
+
+    align-items:flex-start;
+
+    gap:15px;
+
+}
+
+.table-card{
+
+    overflow:auto;
+
+}
+
+table{
+
+    min-width:700px;
+
+}
 
 }
