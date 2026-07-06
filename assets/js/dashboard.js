@@ -195,3 +195,69 @@ function initializeAttendanceChart() {
     });
 
 }
+// ==========================================
+// SAMPLE EMPLOYEE STATUS
+// ==========================================
+
+function loadSampleStatus(){
+
+    const container = document.getElementById("employeeStatusList");
+
+    if(!container) return;
+
+    const employees=[
+
+        {
+            name:"Juan Dela Cruz",
+            position:"Warehouse Staff",
+            status:"Working",
+            color:"status-working"
+        },
+
+        {
+            name:"Maria Santos",
+            position:"Office Staff",
+            status:"Break",
+            color:"status-break"
+        },
+
+        {
+            name:"Pedro Reyes",
+            position:"Driver",
+            status:"Time Out",
+            color:"status-timeout"
+        }
+
+    ];
+
+    container.innerHTML="";
+
+    employees.forEach(emp=>{
+
+        container.innerHTML+=`
+
+        <div class="status-item">
+
+            <div class="status-dot ${emp.color}"></div>
+
+            <div class="status-info">
+
+                <h4>${emp.name}</h4>
+
+                <small>${emp.position}</small>
+
+            </div>
+
+            <span class="status-badge">
+
+                ${emp.status}
+
+            </span>
+
+        </div>
+
+        `;
+
+    });
+
+}
