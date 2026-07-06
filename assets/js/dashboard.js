@@ -6,7 +6,6 @@ document.addEventListener("DOMContentLoaded", () => {
     console.log("✅ WorkSync Dashboard Loaded");
 
     updateGreeting();
-
     startClock();
 
     initializeQuickActions();
@@ -14,6 +13,8 @@ document.addEventListener("DOMContentLoaded", () => {
     initializeAttendanceChart();
 
     loadSampleStatus();
+
+    loadRecentActivity();
 
 });
 
@@ -251,6 +252,79 @@ function loadSampleStatus(){
             <span class="status-badge">
 
                 ${emp.status}
+
+            </span>
+
+        </div>
+
+        `;
+
+    });
+
+}
+// ==========================================
+// RECENT ACTIVITY
+// ==========================================
+
+function loadRecentActivity(){
+
+    const container=document.getElementById("recentActivityList");
+
+    if(!container) return;
+
+    const activities=[
+
+        {
+            time:"08:00 AM",
+            employee:"Juan Dela Cruz",
+            action:"Time In"
+        },
+
+        {
+            time:"12:00 PM",
+            employee:"Maria Santos",
+            action:"Break"
+        },
+
+        {
+            time:"01:00 PM",
+            employee:"Maria Santos",
+            action:"Back to Work"
+        },
+
+        {
+            time:"05:10 PM",
+            employee:"Pedro Reyes",
+            action:"Time Out"
+        }
+
+    ];
+
+    container.innerHTML="";
+
+    activities.forEach(item=>{
+
+        container.innerHTML+=`
+
+        <div class="activity-item">
+
+            <div class="activity-time">
+
+                ${item.time}
+
+            </div>
+
+            <div class="activity-content">
+
+                <h4>${item.employee}</h4>
+
+                <p>${item.action}</p>
+
+            </div>
+
+            <span class="activity-badge">
+
+                ${item.action}
 
             </span>
 
