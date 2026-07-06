@@ -86,50 +86,71 @@
 
         <!-- HEADER -->
 
-        <header class="topbar">
+       <header class="topbar">
 
-            <div class="left">
+    <div class="header-left">
 
-                <button id="menuToggle">
-                    <i class="fa-solid fa-bars"></i>
-                </button>
+        <button id="menuToggle" class="menu-btn">
+            <i class="fa-solid fa-bars"></i>
+        </button>
 
-                <h2>Dashboard</h2>
+        <div class="page-title">
+
+            <h2>Dashboard</h2>
+
+            <p id="greetingText">Good Morning 👋</p>
+
+        </div>
+
+    </div>
+
+    <div class="header-right">
+
+        <div class="search-box">
+
+            <i class="fa-solid fa-magnifying-glass"></i>
+
+            <input type="text" placeholder="Search employees, projects...">
+
+        </div>
+
+        <button class="icon-btn">
+
+            <i class="fa-regular fa-bell"></i>
+
+        </button>
+
+        <button class="icon-btn" id="themeBtn">
+
+            <i class="fa-regular fa-moon"></i>
+
+        </button>
+
+        <div class="clock">
+
+            <i class="fa-regular fa-clock"></i>
+
+            <span id="liveClock">00:00</span>
+
+        </div>
+
+        <div class="profile">
+
+            <img src="https://i.pravatar.cc/100?img=12" alt="Admin">
+
+            <div>
+
+                <h4>Admin</h4>
+
+                <small>Administrator</small>
 
             </div>
 
-            <div class="right">
+        </div>
 
-                <div class="search-box">
+    </div>
 
-                    <i class="fa-solid fa-magnifying-glass"></i>
-
-                    <input type="text" placeholder="Search...">
-
-                </div>
-
-                <button>
-                    <i class="fa-solid fa-bell"></i>
-                </button>
-
-                <button>
-                    <i class="fa-solid fa-moon"></i>
-                </button>
-
-                <div class="profile">
-
-                    <img src="https://i.pravatar.cc/150?img=12" alt="Admin">
-
-                    <div>
-                        <h4>Admin</h4>
-                        <small>Administrator</small>
-                    </div>
-
-                </div>
-
-            </div>
-
-        </header>
+</header>
 
         <!-- =========================
              DASHBOARD CONTENT
