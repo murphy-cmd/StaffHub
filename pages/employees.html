@@ -1,176 +1,314 @@
-<section class="dashboard">
+<!DOCTYPE html>
+<html lang="en">
 
-    <!-- Page Header -->
+<head>
 
-    <div class="page-header">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <div>
+    <title>WorkSync - Employees</title>
 
-            <h2>Employees</h2>
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/sidebar.css">
+    <link rel="stylesheet" href="assets/css/dashboard.css">
+    <link rel="stylesheet" href="assets/css/employees.css">
 
-            <p>Manage all employees in WorkSync.</p>
-            
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
-        </div>
+</head>
 
-        <button id="addEmployeeBtn" class="primary-btn">
+<body>
 
-            <i class="fa-solid fa-user-plus"></i>
+    <!-- SIDEBAR -->
 
-            Add Employee
+    <aside class="sidebar">
 
-        </button>
+        <div class="logo">
 
-    </div>
+            <i class="fa-solid fa-layer-group"></i>
 
-    <!-- Employee Table -->
-
-    <div class="table-card">
-
-        <div class="table-header">
-
-            <input
-                type="text"
-                id="searchEmployee"
-                placeholder="Search Employee..."
-            >
+            <span>WorkSync</span>
 
         </div>
 
-        <table>
+        <ul class="menu">
 
-            <thead>
+            <li>
+                <a href="dashboard.html">
+                    <i class="fa-solid fa-house"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
 
-                <tr>
+            <li class="active">
+                <a href="employees.html">
+                    <i class="fa-solid fa-users"></i>
+                    <span>Employees</span>
+                </a>
+            </li>
 
-                    <th>Employee ID</th>
+            <li>
+                <a href="attendance.html">
+                    <i class="fa-solid fa-clock"></i>
+                    <span>Attendance</span>
+                </a>
+            </li>
 
-                    <th>Full Name</th>
+            <li>
+                <a href="projects.html">
+                    <i class="fa-solid fa-folder-open"></i>
+                    <span>Projects</span>
+                </a>
+            </li>
 
-                    <th>Staff Type</th>
+            <li>
+                <a href="leave.html">
+                    <i class="fa-solid fa-calendar-check"></i>
+                    <span>Leave</span>
+                </a>
+            </li>
 
-                    <th>Schedule</th>
+            <li>
+                <a href="reports.html">
+                    <i class="fa-solid fa-chart-column"></i>
+                    <span>Reports</span>
+                </a>
+            </li>
 
-                    <th>Action</th>
+        </ul>
 
-                </tr>
+    </aside>
 
-            </thead>
+    <!-- MAIN -->
 
-            <tbody id="employeeTable">
+    <main class="main-content">
 
-                <tr>
+        <header class="topbar">
 
-                    <td>EMP-0001</td>
+            <div class="header-left">
 
-                    <td>Juan Dela Cruz</td>
+                <button id="menuToggle" class="menu-btn">
 
-                    <td>
+                    <i class="fa-solid fa-bars"></i>
 
-                        <span class="badge office">
+                </button>
 
-                            Office Staff
+                <div class="page-title">
 
-                        </span>
+                    <h2>Employees</h2>
 
-                    </td>
+                    <p>Manage all employees.</p>
 
-                    <td>Fixed</td>
+                </div>
 
-                    <td>
+            </div>
 
-                        <button class="edit-btn">
+        </header>
 
-                            <i class="fa-solid fa-pen"></i>
+        <section class="dashboard">
 
-                        </button>
+            <div class="page-header">
 
-                        <button class="delete-btn">
+                <div>
 
-                            <i class="fa-solid fa-trash"></i>
+                    <h2>Employees</h2>
 
-                        </button>
+                    <p>Manage all employees in WorkSync.</p>
 
-                    </td>
+                </div>
 
-                </tr>
+                <button id="addEmployeeBtn" class="primary-btn">
 
-                <tr>
+                    <i class="fa-solid fa-user-plus"></i>
 
-                    <td>EMP-0002</td>
+                    Add Employee
 
-                    <td>Maria Santos</td>
+                </button>
 
-                    <td>
+            </div>
 
-                        <span class="badge warehouse">
+            <div class="table-card">
 
-                            Warehouse Staff
+                <div class="table-header">
 
-                        </span>
+                    <input
+                        type="text"
+                        id="searchEmployee"
+                        placeholder="Search Employee..."
+                    >
 
-                    </td>
+                </div>
 
-                    <td>Flexible</td>
+                <table>
 
-                    <td>
+                    <thead>
 
-                        <button class="edit-btn">
+                        <tr>
 
-                            <i class="fa-solid fa-pen"></i>
+                            <th>Employee ID</th>
 
-                        </button>
+                            <th>Full Name</th>
 
-                        <button class="delete-btn">
+                            <th>Staff Type</th>
 
-                            <i class="fa-solid fa-trash"></i>
+                            <th>Schedule</th>
 
-                        </button>
+                            <th>Action</th>
 
-                    </td>
+                        </tr>
 
-                </tr>
+                    </thead>
 
-                <tr>
+                    <tbody id="employeeTable">
 
-                    <td>EMP-0003</td>
+                        <tr>
 
-                    <td>Pedro Reyes</td>
+                            <td>EMP-0001</td>
 
-                    <td>
+                            <td>Juan Dela Cruz</td>
 
-                        <span class="badge driver">
+                            <td>
 
-                            Driver
+                                <span class="badge office">
 
-                        </span>
+                                    Office Staff
 
-                    </td>
+                                </span>
 
-                    <td>Flexible</td>
+                            </td>
 
-                    <td>
+                            <td>
 
-                        <button class="edit-btn">
+                                <span class="badge office">
 
-                            <i class="fa-solid fa-pen"></i>
+                                    Fixed
 
-                        </button>
+                                </span>
 
-                        <button class="delete-btn">
+                            </td>
 
-                            <i class="fa-solid fa-trash"></i>
+                            <td>
 
-                        </button>
+                                <button class="edit-btn">
 
-                    </td>
+                                    <i class="fa-solid fa-pen"></i>
 
-                </tr>
+                                </button>
 
-            </tbody>
+                                <button class="delete-btn">
 
-        </table>
+                                    <i class="fa-solid fa-trash"></i>
 
-    </div>
+                                </button>
 
-</section>
+                            </td>
+
+                        </tr>
+
+                        <tr>
+
+                            <td>EMP-0002</td>
+
+                            <td>Maria Santos</td>
+
+                            <td>
+
+                                <span class="badge warehouse">
+
+                                    Warehouse Staff
+
+                                </span>
+
+                            </td>
+
+                            <td>
+
+                                <span class="badge warehouse">
+
+                                    Flexible
+
+                                </span>
+
+                            </td>
+
+                            <td>
+
+                                <button class="edit-btn">
+
+                                    <i class="fa-solid fa-pen"></i>
+
+                                </button>
+
+                                <button class="delete-btn">
+
+                                    <i class="fa-solid fa-trash"></i>
+
+                                </button>
+
+                            </td>
+
+                        </tr>
+
+                        <tr>
+
+                            <td>EMP-0003</td>
+
+                            <td>Pedro Reyes</td>
+
+                            <td>
+
+                                <span class="badge driver">
+
+                                    Driver
+
+                                </span>
+
+                            </td>
+
+                            <td>
+
+                                <span class="badge driver">
+
+                                    Flexible
+
+                                </span>
+
+                            </td>
+
+                            <td>
+
+                                <button class="edit-btn">
+
+                                    <i class="fa-solid fa-pen"></i>
+
+                                </button>
+
+                                <button class="delete-btn">
+
+                                    <i class="fa-solid fa-trash"></i>
+
+                                </button>
+
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <script src="assets/js/sidebar.js"></script>
+    <script src="assets/js/employees.js"></script>
+
+</body>
+
+</html>
