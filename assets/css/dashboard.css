@@ -694,3 +694,100 @@ grid-template-columns:1fr;
 }
 
 }
+/* ==========================================
+   HEADER V2
+========================================== */
+
+.header-left{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:20px;
+
+}
+
+.page-title h2{
+
+    font-size:28px;
+
+    margin-bottom:4px;
+
+}
+
+.page-title p{
+
+    color:var(--gray);
+
+    font-size:14px;
+
+}
+
+.header-right{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+
+}
+
+.menu-btn{
+
+    width:48px;
+
+    height:48px;
+
+    border:none;
+
+    border-radius:14px;
+
+    background:var(--primary);
+
+    color:white;
+
+    font-size:18px;
+
+}
+
+.icon-btn{
+
+    width:46px;
+
+    height:46px;
+
+    border:none;
+
+    border-radius:14px;
+
+    background:white;
+
+    box-shadow:var(--shadow);
+
+    font-size:18px;
+
+}
+
+.clock{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    padding:0 18px;
+
+    height:46px;
+
+    border-radius:14px;
+
+    background:white;
+
+    box-shadow:var(--shadow);
+
+    font-weight:600;
+
+}
