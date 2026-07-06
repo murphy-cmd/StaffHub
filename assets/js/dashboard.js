@@ -2,15 +2,12 @@
 // WorkSync Dashboard
 // ==========================================
 
-// Dashboard Loaded
 document.addEventListener("DOMContentLoaded", () => {
 
     console.log("✅ WorkSync Dashboard Loaded");
 
     updateGreeting();
-
     startClock();
-
     initializeQuickActions();
 
 });
@@ -23,21 +20,19 @@ function updateGreeting() {
 
     const greeting = document.getElementById("greetingText");
 
+    if (!greeting) return;
+
     const hour = new Date().getHours();
 
-    if(hour < 12){
+    if (hour >= 5 && hour < 12) {
 
         greeting.textContent = "Good Morning 👋";
 
-    }
-
-    else if(hour < 18){
+    } else if (hour >= 12 && hour < 18) {
 
         greeting.textContent = "Good Afternoon ☀️";
 
-    }
-
-    else{
+    } else {
 
         greeting.textContent = "Good Evening 🌙";
 
@@ -49,56 +44,61 @@ function updateGreeting() {
 // LIVE CLOCK
 // ==========================================
 
-function startClock(){
+function startClock() {
 
     const clock = document.getElementById("liveClock");
 
-    function update(){
+    if (!clock) return;
+
+    function updateClock() {
 
         const now = new Date();
 
-        clock.textContent = now.toLocaleTimeString([],{
+        clock.textContent = now.toLocaleTimeString("en-US", {
 
-            hour:'2-digit',
-
-            minute:'2-digit'
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit",
+            hour12: true
 
         });
 
     }
 
-    update();
+    updateClock();
 
-    setInterval(update,1000);
+    setInterval(updateClock, 1000);
 
 }
+
 // ==========================================
 // QUICK ACTIONS
 // ==========================================
 
 function initializeQuickActions() {
 
-    document.getElementById("addEmployeeBtn")?.addEventListener("click", () => {
+    const actions = {
 
-        alert("Employee Module Coming Soon");
+        addEmployeeBtn: "Employee Module Coming Soon",
+        newProjectBtn: "Project Module Coming Soon",
+        leaveBtn: "Leave Module Coming Soon",
+        reportBtn: "Reports Module Coming Soon"
 
-    });
+    };
 
-    document.getElementById("newProjectBtn")?.addEventListener("click", () => {
+    Object.keys(actions).forEach(id => {
 
-        alert("Project Module Coming Soon");
+        const button = document.getElementById(id);
 
-    });
+        if (button) {
 
-    document.getElementById("leaveBtn")?.addEventListener("click", () => {
+            button.addEventListener("click", () => {
 
-        alert("Leave Module Coming Soon");
+                alert(actions[id]);
 
-    });
+            });
 
-    document.getElementById("reportBtn")?.addEventListener("click", () => {
-
-        alert("Reports Module Coming Soon");
+        }
 
     });
 
