@@ -189,3 +189,42 @@ left:20px;
 }
 
 }
+/* ==========================================
+   MOBILE SIDEBAR
+========================================== */
+
+@media (max-width:768px){
+
+.sidebar{
+
+    position:fixed;
+
+    left:-260px;
+
+    top:0;
+
+    width:260px;
+
+    height:100vh;
+
+    z-index:9999;
+
+    transition:.3s;
+
+}
+
+.sidebar.show{
+
+    left:0;
+
+}
+
+.main-content{
+
+    margin-left:0 !important;
+
+    width:100%;
+
+}
+
+}
