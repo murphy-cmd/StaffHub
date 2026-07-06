@@ -1,36 +1,35 @@
 // ==========================================
-// WorkSync Sidebar
+// SIDEBAR
 // ==========================================
 
-const sidebar = document.querySelector(".sidebar");
-const menuToggle = document.getElementById("menuToggle");
+document.addEventListener("DOMContentLoaded", () => {
 
-// Toggle Sidebar
-menuToggle.addEventListener("click", () => {
+    const sidebar = document.querySelector(".sidebar");
+    const menuToggle = document.getElementById("menuToggle");
 
-    // Desktop
-    if (window.innerWidth > 900) {
+    if (menuToggle && sidebar) {
 
-        sidebar.classList.toggle("collapsed");
+        menuToggle.addEventListener("click", () => {
 
-    }
+            sidebar.classList.toggle("show");
 
-    // Mobile
-    else {
-
-        sidebar.classList.toggle("show");
+        });
 
     }
 
-});
+    document.addEventListener("click", (e) => {
 
-// Remove Mobile Sidebar kapag lumaki ulit ang screen
-window.addEventListener("resize", () => {
+        if (window.innerWidth <= 768) {
 
-    if (window.innerWidth > 900) {
+            if (
+                !sidebar.contains(e.target) &&
+                !menuToggle.contains(e.target)
+            ) {
+                sidebar.classList.remove("show");
+            }
 
-        sidebar.classList.remove("show");
+        }
 
-    }
+    });
 
 });
