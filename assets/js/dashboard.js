@@ -1,7 +1,6 @@
 // ==========================================
 // WorkSync Dashboard
 // ==========================================
-
 document.addEventListener("DOMContentLoaded", () => {
 
     console.log("✅ WorkSync Dashboard Loaded");
@@ -13,6 +12,8 @@ document.addEventListener("DOMContentLoaded", () => {
     initializeQuickActions();
 
     initializeAttendanceChart();
+
+    loadSampleStatus();
 
 });
 
