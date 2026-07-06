@@ -1,1 +1,175 @@
+<section class="dashboard">
 
+    <!-- Page Header -->
+
+    <div class="page-header">
+
+        <div>
+
+            <h2>Employees</h2>
+
+            <p>Manage all employees in WorkSync.</p>
+
+        </div>
+
+        <button id="addEmployeeBtn" class="primary-btn">
+
+            <i class="fa-solid fa-user-plus"></i>
+
+            Add Employee
+
+        </button>
+
+    </div>
+
+    <!-- Employee Table -->
+
+    <div class="table-card">
+
+        <div class="table-header">
+
+            <input
+                type="text"
+                id="searchEmployee"
+                placeholder="Search Employee..."
+            >
+
+        </div>
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>Employee ID</th>
+
+                    <th>Full Name</th>
+
+                    <th>Staff Type</th>
+
+                    <th>Schedule</th>
+
+                    <th>Action</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody id="employeeTable">
+
+                <tr>
+
+                    <td>EMP-0001</td>
+
+                    <td>Juan Dela Cruz</td>
+
+                    <td>
+
+                        <span class="badge office">
+
+                            Office Staff
+
+                        </span>
+
+                    </td>
+
+                    <td>Fixed</td>
+
+                    <td>
+
+                        <button class="edit-btn">
+
+                            <i class="fa-solid fa-pen"></i>
+
+                        </button>
+
+                        <button class="delete-btn">
+
+                            <i class="fa-solid fa-trash"></i>
+
+                        </button>
+
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>EMP-0002</td>
+
+                    <td>Maria Santos</td>
+
+                    <td>
+
+                        <span class="badge warehouse">
+
+                            Warehouse Staff
+
+                        </span>
+
+                    </td>
+
+                    <td>Flexible</td>
+
+                    <td>
+
+                        <button class="edit-btn">
+
+                            <i class="fa-solid fa-pen"></i>
+
+                        </button>
+
+                        <button class="delete-btn">
+
+                            <i class="fa-solid fa-trash"></i>
+
+                        </button>
+
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>EMP-0003</td>
+
+                    <td>Pedro Reyes</td>
+
+                    <td>
+
+                        <span class="badge driver">
+
+                            Driver
+
+                        </span>
+
+                    </td>
+
+                    <td>Flexible</td>
+
+                    <td>
+
+                        <button class="edit-btn">
+
+                            <i class="fa-solid fa-pen"></i>
+
+                        </button>
+
+                        <button class="delete-btn">
+
+                            <i class="fa-solid fa-trash"></i>
+
+                        </button>
+
+                    </td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</section>
