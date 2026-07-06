@@ -107,3 +107,90 @@ function initializeQuickActions() {
     });
 
 }
+// ==========================================
+// ATTENDANCE CHART
+// ==========================================
+
+function initializeAttendanceChart() {
+
+    const canvas = document.getElementById("attendanceChart");
+
+    if (!canvas) return;
+
+    const ctx = canvas.getContext("2d");
+
+    new Chart(ctx, {
+
+        type: "doughnut",
+
+        data: {
+
+            labels: [
+
+                "Present",
+
+                "Late",
+
+                "Absent",
+
+                "Leave"
+
+            ],
+
+            datasets: [
+
+                {
+
+                    data: [
+
+                        65,
+
+                        10,
+
+                        15,
+
+                        10
+
+                    ],
+
+                    backgroundColor: [
+
+                        "#22C55E",
+
+                        "#F59E0B",
+
+                        "#EF4444",
+
+                        "#3B82F6"
+
+                    ],
+
+                    borderWidth: 0
+
+                }
+
+            ]
+
+        },
+
+        options: {
+
+            responsive: true,
+
+            maintainAspectRatio: false,
+
+            plugins: {
+
+                legend: {
+
+                    position: "bottom"
+
+                }
+
+            }
+
+        }
+
+    });
+
+}
