@@ -928,3 +928,73 @@ grid-template-columns:1fr;
     color:#2563EB;
 
 }
+/* ==========================================
+   RECENT ACTIVITY
+========================================== */
+
+.activity-item{
+
+    display:flex;
+    gap:15px;
+    align-items:flex-start;
+
+    padding:15px 0;
+
+    border-bottom:1px solid #E5E7EB;
+
+}
+
+.activity-item:last-child{
+
+    border-bottom:none;
+
+}
+
+.activity-time{
+
+    min-width:70px;
+
+    font-size:13px;
+
+    color:#64748B;
+
+    font-weight:600;
+
+}
+
+.activity-content{
+
+    flex:1;
+
+}
+
+.activity-content h4{
+
+    margin:0;
+    font-size:15px;
+
+}
+
+.activity-content p{
+
+    margin-top:4px;
+    color:#64748B;
+    font-size:13px;
+
+}
+
+.activity-badge{
+
+    background:#2563EB;
+
+    color:white;
+
+    padding:5px 10px;
+
+    border-radius:20px;
+
+    font-size:12px;
+
+    font-weight:600;
+
+}
