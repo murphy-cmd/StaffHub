@@ -326,3 +326,142 @@
     color:var(--gray);
 
 }
+/* ==========================================
+   DASHBOARD GRID
+========================================== */
+
+.dashboard-grid{
+
+    display:grid;
+
+    grid-template-columns:2fr 1fr;
+
+    gap:20px;
+
+    margin-top:25px;
+
+}
+
+.large-card{
+
+    min-height:350px;
+
+}
+
+.card-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:25px;
+
+}
+
+.card-header h3{
+
+    font-size:20px;
+
+}
+
+.card-header button{
+
+    background:var(--primary);
+
+    color:white;
+
+    padding:10px 18px;
+
+    border-radius:10px;
+
+}
+
+.chart-placeholder{
+
+    height:250px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    background:#F5F7FB;
+
+    border-radius:15px;
+
+    color:var(--gray);
+
+    font-weight:600;
+
+}
+
+/* STATUS */
+
+.status-list{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:18px;
+
+}
+
+.status-item{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+
+}
+
+.status{
+
+    width:14px;
+
+    height:14px;
+
+    border-radius:50%;
+
+}
+
+.working{
+
+    background:#22C55E;
+
+}
+
+.break{
+
+    background:#F59E0B;
+
+}
+
+.timeout{
+
+    background:#9CA3AF;
+
+}
+
+.status-item small{
+
+    color:var(--gray);
+
+}
+
+/* Responsive */
+
+@media(max-width:1100px){
+
+.dashboard-grid{
+
+grid-template-columns:1fr;
+
+}
+
+}
