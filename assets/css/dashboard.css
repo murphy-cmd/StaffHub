@@ -605,9 +605,9 @@ grid-template-columns:1fr;
 
 #attendanceChart{
 
-    width:100%;
+    width:100% !important;
 
-    height:280px;
+    height:320px !important;
 
 }
 
