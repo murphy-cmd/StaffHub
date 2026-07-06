@@ -7,8 +7,12 @@ document.addEventListener("DOMContentLoaded", () => {
     console.log("✅ WorkSync Dashboard Loaded");
 
     updateGreeting();
+
     startClock();
+
     initializeQuickActions();
+
+    initializeAttendanceChart();
 
 });
 
