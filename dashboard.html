@@ -8,29 +8,28 @@
 
     <title>WorkSync Dashboard</title>
 
-<link rel="stylesheet" href="assets/css/style.css">
-<link rel="stylesheet" href="assets/css/sidebar.css">
-<link rel="stylesheet" href="assets/css/dashboard.css">
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/sidebar.css">
+    <link rel="stylesheet" href="assets/css/dashboard.css">
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
 </head>
 
 <body>
 
-    <!-- ========================= -->
-    <!-- Sidebar -->
-    <!-- ========================= -->
+    <!-- =========================
+         SIDEBAR
+    ========================== -->
 
     <aside class="sidebar">
 
         <div class="logo">
-
             <i class="fa-solid fa-layer-group"></i>
-
             <span>WorkSync</span>
-
         </div>
 
         <ul class="menu">
@@ -79,22 +78,20 @@
 
     </aside>
 
-    <!-- ========================= -->
-    <!-- Main -->
-    <!-- ========================= -->
+    <!-- =========================
+         MAIN CONTENT
+    ========================== -->
 
     <main class="main-content">
 
-        <!-- Header -->
+        <!-- HEADER -->
 
         <header class="topbar">
 
             <div class="left">
 
                 <button id="menuToggle">
-
                     <i class="fa-solid fa-bars"></i>
-
                 </button>
 
                 <h2>Dashboard</h2>
@@ -112,27 +109,20 @@
                 </div>
 
                 <button>
-
                     <i class="fa-solid fa-bell"></i>
-
                 </button>
 
                 <button>
-
                     <i class="fa-solid fa-moon"></i>
-
                 </button>
 
                 <div class="profile">
 
-                    <img src="https://i.pravatar.cc/150?img=12" alt="">
+                    <img src="https://i.pravatar.cc/150?img=12" alt="Admin">
 
                     <div>
-
                         <h4>Admin</h4>
-
                         <small>Administrator</small>
-
                     </div>
 
                 </div>
@@ -141,46 +131,48 @@
 
         </header>
 
-        <!-- Dashboard Content -->
+        <!-- =========================
+             DASHBOARD CONTENT
+        ========================== -->
 
         <section class="dashboard">
 
-            <!-- Dito natin ilalagay mamaya ang cards -->
+            <div class="cards">
 
-    <div class="cards">
+                <div class="card">
+                    <h4>Total Employees</h4>
+                    <h2>125</h2>
+                    <p>Registered Employees</p>
+                </div>
 
-        <div class="card">
-            <h4>Total Employees</h4>
-            <h2>125</h2>
-            <p>Registered Employees</p>
-        </div>
+                <div class="card">
+                    <h4>Present Today</h4>
+                    <h2>98</h2>
+                    <p>Currently Working</p>
+                </div>
 
-        <div class="card">
-            <h4>Present Today</h4>
-            <h2>98</h2>
-            <p>Currently Working</p>
-        </div>
+                <div class="card">
+                    <h4>Projects</h4>
+                    <h2>12</h2>
+                    <p>Active Projects</p>
+                </div>
 
-        <div class="card">
-            <h4>Projects</h4>
-            <h2>12</h2>
-            <p>Active Projects</p>
-        </div>
+                <div class="card">
+                    <h4>Pending Leave</h4>
+                    <h2>4</h2>
+                    <p>Awaiting Approval</p>
+                </div>
 
-        <div class="card">
-            <h4>Pending Leave</h4>
-            <h2>4</h2>
-            <p>Awaiting Approval</p>
-        </div>
-
-    </div>
+            </div>
 
         </section>
 
     </main>
 
-<script src="assets/js/sidebar.js"></script>
-<script src="assets/js/dashboard.js"></script>
+    <!-- JAVASCRIPT -->
+
+    <script src="assets/js/sidebar.js"></script>
+    <script src="assets/js/dashboard.js"></script>
 
 </body>
 
