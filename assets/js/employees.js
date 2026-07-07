@@ -168,10 +168,12 @@ async function loadEmployees() {
 
     const tbody = document.getElementById("employeeTable");
 
+    tbody.innerHTML = "";
+
     const { data, error } = await supabase
         .from("employees")
         .select("*")
-        .order("employee_id");
+        .order("employee_id", { ascending: true });
 
     if (error) {
 
@@ -181,34 +183,56 @@ async function loadEmployees() {
 
     }
 
-    tbody.innerHTML = "";
-
     data.forEach(emp => {
 
+        let staffClass = "";
+
+        if (emp.staff_type === "Office Staff") {
+
+            staffClass = "office";
+
+        } else if (emp.staff_type === "Warehouse Staff") {
+
+            staffClass = "warehouse";
+
+        } else {
+
+            staffClass = "driver";
+
+        }
+
         tbody.innerHTML += `
-            <tr>
+        <tr>
 
-                <td>${emp.employee_id}</td>
+            <td>${emp.employee_id}</td>
 
-                <td>${emp.full_name}</td>
+            <td>${emp.full_name}</td>
 
-                <td>${emp.staff_type}</td>
+            <td>
+                <span class="badge ${staffClass}">
+                    ${emp.staff_type}
+                </span>
+            </td>
 
-                <td>${emp.schedule_mode}</td>
+            <td>
+                <span class="badge ${staffClass}">
+                    ${emp.schedule_mode}
+                </span>
+            </td>
 
-                <td>
+            <td>
 
-                    <button class="edit-btn">
-                        <i class="fa-solid fa-pen"></i>
-                    </button>
+                <button class="edit-btn" data-id="${emp.id}">
+                    <i class="fa-solid fa-pen"></i>
+                </button>
 
-                    <button class="delete-btn">
-                        <i class="fa-solid fa-trash"></i>
-                    </button>
+                <button class="delete-btn" data-id="${emp.id}">
+                    <i class="fa-solid fa-trash"></i>
+                </button>
 
-                </td>
+            </td>
 
-            </tr>
+        </tr>
         `;
 
     });
