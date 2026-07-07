@@ -1,3 +1,4 @@
+import { supabase } from "../../supabase/supabase-config.js";
 // ==========================================
 // EMPLOYEES MODULE
 // ==========================================
@@ -5,6 +6,8 @@
 document.addEventListener("DOMContentLoaded", () => {
 
     initializeEmployeeModal();
+
+    loadEmployees();
 
 });
 
@@ -97,5 +100,117 @@ function generateEmployeeID() {
     const number = Math.floor(Math.random() * 9999) + 1;
 
     return "EMP-" + number.toString().padStart(4, "0");
+
+}
+// ==========================================
+// SAVE EMPLOYEE
+// ==========================================
+
+document.getElementById("saveEmployee").addEventListener("click", saveEmployee);
+
+async function saveEmployee() {
+
+    const employee_id = document.getElementById("employeeId").value.trim();
+
+    const full_name = document.getElementById("fullName").value.trim();
+
+    const staff_type = document.getElementById("staffType").value;
+
+    const schedule_mode = document.getElementById("scheduleMode").value;
+
+    if (!full_name || !staff_type) {
+
+        alert("Please complete all required fields.");
+
+        return;
+
+    }
+
+    const { error } = await supabase
+        .from("employees")
+        .insert([
+            {
+                employee_id,
+                full_name,
+                staff_type,
+                schedule_mode
+            }
+        ]);
+
+    if (error) {
+
+        console.error(error);
+
+        alert("Failed to save employee.");
+
+        return;
+
+    }
+
+    alert("Employee saved successfully!");
+
+    document.getElementById("employeeModal").classList.remove("show");
+
+    document.getElementById("fullName").value = "";
+
+    document.getElementById("staffType").value = "";
+
+    document.getElementById("scheduleMode").value = "Fixed";
+
+    loadEmployees();
+
+}
+// ==========================================
+// LOAD EMPLOYEES
+// ==========================================
+
+async function loadEmployees() {
+
+    const tbody = document.getElementById("employeeTable");
+
+    const { data, error } = await supabase
+        .from("employees")
+        .select("*")
+        .order("employee_id");
+
+    if (error) {
+
+        console.error(error);
+
+        return;
+
+    }
+
+    tbody.innerHTML = "";
+
+    data.forEach(emp => {
+
+        tbody.innerHTML += `
+            <tr>
+
+                <td>${emp.employee_id}</td>
+
+                <td>${emp.full_name}</td>
+
+                <td>${emp.staff_type}</td>
+
+                <td>${emp.schedule_mode}</td>
+
+                <td>
+
+                    <button class="edit-btn">
+                        <i class="fa-solid fa-pen"></i>
+                    </button>
+
+                    <button class="delete-btn">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
+
+                </td>
+
+            </tr>
+        `;
+
+    });
 
 }
