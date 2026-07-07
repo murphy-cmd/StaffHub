@@ -3,29 +3,27 @@
 ========================================== */
 
 .sidebar{
+    position: fixed;
+    top: 20px;
+    left: 20px;
 
-    position:fixed;
-    top:20px;
-    left:20px;
+    width: 270px;
+    height: calc(100vh - 40px);
 
-    width:270px;
-    height:calc(100vh - 40px);
+    background: var(--sidebar);
 
-    background:var(--sidebar);
+    border-radius: 24px;
 
-    border-radius:24px;
+    padding: 18px;
 
-    padding:20px;
+    display: flex;
+    flex-direction: column;
 
-    display:flex;
-    flex-direction:column;
+    box-shadow: 0 20px 40px rgba(0,0,0,.18);
 
-    box-shadow:0 20px 40px rgba(0,0,0,.18);
+    transition: .35s ease;
 
-    transition:.35s;
-
-    z-index:999;
-
+    z-index: 999;
 }
 
 /* ==========================================
@@ -33,26 +31,23 @@
 ========================================== */
 
 .logo{
-
     display:flex;
     align-items:center;
-    gap:15px;
+    gap:14px;
 
     color:#fff;
 
     font-size:24px;
     font-weight:700;
 
-    margin-bottom:35px;
-
+    margin-bottom:25px;
 }
 
 .logo i{
+    width:48px;
+    height:48px;
 
-    width:50px;
-    height:50px;
-
-    border-radius:15px;
+    border-radius:14px;
 
     background:var(--primary);
 
@@ -60,6 +55,7 @@
     justify-content:center;
     align-items:center;
 
+    font-size:20px;
 }
 
 /* ==========================================
@@ -67,68 +63,67 @@
 ========================================== */
 
 .menu{
-
     list-style:none;
 
     display:flex;
     flex-direction:column;
 
-    gap:6px;
+    gap:5px;
 
     padding:0;
     margin:0;
 
+    flex:1;
 }
 
 .menu li{
-
     list-style:none;
-
 }
 
 .menu li a{
-
     display:flex;
     align-items:center;
 
-    gap:15px;
+    gap:14px;
 
-    padding:14px 18px;
+    padding:11px 14px;
 
     border-radius:14px;
 
-    color:#D1D5DB;
-
     text-decoration:none;
+
+    color:#D1D5DB;
 
     transition:.3s;
 
+    font-size:15px;
     font-weight:500;
-
 }
 
 .menu li a:hover{
-
     background:rgba(255,255,255,.08);
-
     color:#fff;
-
 }
 
 .menu li.active a{
-
     background:var(--primary);
-
     color:#fff;
-
 }
 
 .menu li i{
-
     width:22px;
-
     text-align:center;
+    font-size:18px;
+}
 
+/* ==========================================
+   MAIN CONTENT
+========================================== */
+
+.main-content{
+    margin-left:310px;
+    padding:20px;
+    transition:.35s ease;
 }
 
 /* ==========================================
@@ -136,43 +131,33 @@
 ========================================== */
 
 .sidebar.collapsed{
-
-    width:90px;
-
+    width:95px;
 }
 
 .sidebar.collapsed .logo{
-
     justify-content:center;
-
 }
 
-.sidebar.collapsed .logo span,
-
-.sidebar.collapsed .menu span{
-
+.sidebar.collapsed .logo span{
     display:none;
-
 }
 
 .sidebar.collapsed .menu li a{
-
     justify-content:center;
-
+    padding:12px;
 }
 
-.main-content{
+.sidebar.collapsed .menu li span{
+    display:none;
+}
 
-    margin-left:310px;
-
-    transition:.35s;
-
+.sidebar.collapsed .menu li i{
+    margin:0;
+    width:auto;
 }
 
 .main-content.expanded{
-
-    margin-left:130px;
-
+    margin-left:135px;
 }
 
 /* ==========================================
@@ -183,8 +168,9 @@
 
 .sidebar{
 
+    left:-300px;
+
     top:0;
-    left:-280px;
 
     width:270px;
 
@@ -203,6 +189,8 @@
 .main-content{
 
     margin-left:0;
+
+    padding:15px;
 
 }
 
