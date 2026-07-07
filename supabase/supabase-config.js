@@ -1,3 +1,4 @@
+import { supabase } from "../../supabase/supabase-config.js";
 // ==========================================
 // SUPABASE CONFIG
 // WorkSync
