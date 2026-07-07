@@ -5,13 +5,10 @@
 .sidebar{
 
     position:fixed;
-
     top:20px;
-
     left:20px;
 
     width:270px;
-
     height:calc(100vh - 40px);
 
     background:var(--sidebar);
@@ -21,24 +18,13 @@
     padding:20px;
 
     display:flex;
-
     flex-direction:column;
-
-    justify-content:space-between;
 
     box-shadow:0 20px 40px rgba(0,0,0,.18);
 
     transition:.35s;
 
     z-index:999;
-
-}
-
-/* Collapse */
-
-.sidebar.collapsed{
-
-    width:90px;
 
 }
 
@@ -49,25 +35,21 @@
 .logo{
 
     display:flex;
-
     align-items:center;
-
     gap:15px;
 
-    color:white;
+    color:#fff;
 
     font-size:24px;
-
     font-weight:700;
 
-    margin-bottom:40px;
+    margin-bottom:35px;
 
 }
 
 .logo i{
 
     width:50px;
-
     height:50px;
 
     border-radius:15px;
@@ -75,12 +57,8 @@
     background:var(--primary);
 
     display:flex;
-
     justify-content:center;
-
     align-items:center;
-
-    font-size:22px;
 
 }
 
@@ -90,29 +68,38 @@
 
 .menu{
 
-    display:flex;
+    list-style:none;
 
+    display:flex;
     flex-direction:column;
 
-    gap:8px;
+    gap:6px;
+
+    padding:0;
+    margin:0;
 
 }
 
 .menu li{
 
-    display:flex;
+    list-style:none;
 
+}
+
+.menu li a{
+
+    display:flex;
     align-items:center;
 
-    gap:16px;
+    gap:15px;
 
-    padding:15px;
+    padding:14px 18px;
 
-    border-radius:15px;
+    border-radius:14px;
 
     color:#D1D5DB;
 
-    cursor:pointer;
+    text-decoration:none;
 
     transition:.3s;
 
@@ -120,41 +107,37 @@
 
 }
 
-.menu li:hover{
+.menu li a:hover{
 
     background:rgba(255,255,255,.08);
 
-    color:white;
+    color:#fff;
 
 }
 
-.menu li.active{
+.menu li.active a{
 
     background:var(--primary);
 
-    color:white;
+    color:#fff;
 
 }
 
 .menu li i{
 
-    width:24px;
+    width:22px;
 
     text-align:center;
-
-    font-size:18px;
 
 }
 
 /* ==========================================
-   COLLAPSED
+   COLLAPSE
 ========================================== */
 
-.sidebar.collapsed .logo span,
+.sidebar.collapsed{
 
-.sidebar.collapsed .menu span{
-
-    display:none;
+    width:90px;
 
 }
 
@@ -164,52 +147,50 @@
 
 }
 
-.sidebar.collapsed .menu li{
+.sidebar.collapsed .logo span,
+
+.sidebar.collapsed .menu span{
+
+    display:none;
+
+}
+
+.sidebar.collapsed .menu li a{
 
     justify-content:center;
 
 }
 
+.main-content{
+
+    margin-left:310px;
+
+    transition:.35s;
+
+}
+
+.main-content.expanded{
+
+    margin-left:130px;
+
+}
+
 /* ==========================================
-   RESPONSIVE
+   MOBILE
 ========================================== */
 
-@media(max-width:900px){
+@media(max-width:768px){
 
 .sidebar{
-
-left:-320px;
-
-}
-
-.sidebar.show{
-
-left:20px;
-
-}
-
-}
-/* ==========================================
-   MOBILE SIDEBAR
-========================================== */
-
-@media (max-width:768px){
-
-.sidebar{
-
-    position:fixed;
-
-    left:-260px;
 
     top:0;
+    left:-280px;
 
-    width:260px;
+    width:270px;
 
     height:100vh;
 
-    z-index:9999;
-
-    transition:.3s;
+    border-radius:0;
 
 }
 
@@ -221,53 +202,8 @@ left:20px;
 
 .main-content{
 
-    margin-left:0 !important;
-
-    width:100%;
+    margin-left:0;
 
 }
-
-}
-/* ==========================================
-   DESKTOP COLLAPSE
-========================================== */
-
-.sidebar{
-
-    width:280px;
-    transition:.3s;
-
-}
-
-.main-content{
-
-    margin-left:280px;
-    transition:.3s;
-
-}
-
-.sidebar.collapsed{
-
-    width:90px;
-
-}
-
-.sidebar.collapsed .logo span,
-
-.sidebar.collapsed .menu span{
-
-    display:none;
-
-}
-
-.sidebar.collapsed .menu li{
-
-    justify-content:center;
-
-}
-
-.main-content.expanded{
-
-    margin-left:90px;
 
 }
