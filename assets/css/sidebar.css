@@ -4,28 +4,27 @@
 
 .sidebar{
 
-    position: fixed;
-    top: 20px;
-    left: 20px;
+    position:fixed;
+    top:20px;
+    left:20px;
 
-    width: 280px;
-    height: calc(100vh - 40px);
+    width:270px;
+    height:calc(100vh - 40px);
 
-    background: var(--sidebar);
+    background:var(--sidebar);
 
-    border-radius: 24px;
+    border-radius:24px;
 
-    padding: 18px;
+    padding:20px;
 
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    display:flex;
+    flex-direction:column;
 
-    box-shadow: 0 20px 40px rgba(0,0,0,.18);
+    box-shadow:0 20px 40px rgba(0,0,0,.18);
 
-    transition: .35s ease;
+    transition:.35s;
 
-    z-index: 999;
+    z-index:999;
 
 }
 
@@ -35,33 +34,31 @@
 
 .logo{
 
-    display: flex;
-    align-items: center;
-    gap: 14px;
+    display:flex;
+    align-items:center;
+    gap:15px;
 
-    color: #fff;
+    color:#fff;
 
-    font-size: 22px;
-    font-weight: 700;
+    font-size:24px;
+    font-weight:700;
 
-    margin-bottom: 28px;
+    margin-bottom:35px;
 
 }
 
 .logo i{
 
-    width: 48px;
-    height: 48px;
+    width:50px;
+    height:50px;
 
-    border-radius: 14px;
+    border-radius:15px;
 
-    background: var(--primary);
+    background:var(--primary);
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    font-size: 20px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
 
 }
 
@@ -71,149 +68,110 @@
 
 .menu{
 
-    list-style: none;
+    list-style:none;
 
-    display: flex;
-    flex-direction: column;
+    display:flex;
+    flex-direction:column;
 
-    gap: 4px;
+    gap:6px;
 
-    padding: 0;
-    margin: 0;
+    padding:0;
+    margin:0;
 
 }
 
 .menu li{
 
-    list-style: none;
+    list-style:none;
 
 }
 
 .menu li a{
 
-    display: flex;
-    align-items: center;
+    display:flex;
+    align-items:center;
 
-    gap: 12px;
+    gap:15px;
 
-    padding: 12px 16px;
+    padding:14px 18px;
 
-    border-radius: 12px;
+    border-radius:14px;
 
-    color: #D1D5DB;
+    color:#D1D5DB;
 
-    text-decoration: none;
+    text-decoration:none;
 
-    font-size: 15px;
-    font-weight: 500;
+    transition:.3s;
 
-    transition: .3s;
+    font-weight:500;
 
 }
 
 .menu li a:hover{
 
-    background: rgba(255,255,255,.08);
+    background:rgba(255,255,255,.08);
 
-    color: #fff;
+    color:#fff;
 
 }
 
 .menu li.active a{
 
-    background: var(--primary);
+    background:var(--primary);
 
-    color: #fff;
+    color:#fff;
 
 }
 
 .menu li i{
 
-    width: 22px;
+    width:22px;
 
-    text-align: center;
-
-    font-size: 17px;
+    text-align:center;
 
 }
 
 /* ==========================================
-   DESKTOP COLLAPSE
+   COLLAPSE
 ========================================== */
 
 .sidebar.collapsed{
 
-    width: 220px;
+    width:90px;
 
 }
 
 .sidebar.collapsed .logo{
 
-    gap: 10px;
+    justify-content:center;
 
 }
 
-.sidebar.collapsed .logo span{
-
-    display: block;
-
-    font-size: 20px;
-
-}
+.sidebar.collapsed .logo span,
 
 .sidebar.collapsed .menu span{
 
-    display: block;
-
-    font-size: 14px;
+    display:none;
 
 }
 
 .sidebar.collapsed .menu li a{
 
-    padding: 11px 14px;
-
-    gap: 10px;
-
-}
-
-.sidebar.collapsed .menu li i{
-
-    font-size: 16px;
+    justify-content:center;
 
 }
 
 .main-content{
 
-    margin-left: 320px;
+    margin-left:310px;
 
-    transition: .35s ease;
+    transition:.35s;
 
 }
 
 .main-content.expanded{
 
-    margin-left: 260px;
-
-}
-
-/* ==========================================
-   TABLET
-========================================== */
-
-@media(max-width:900px){
-
-.sidebar{
-
-    left:-320px;
-
-}
-
-.sidebar.show{
-
-    left:20px;
-
-}
+    margin-left:130px;
 
 }
 
@@ -225,32 +183,26 @@
 
 .sidebar{
 
-    position: fixed;
+    top:0;
+    left:-280px;
 
-    top: 0;
-    left: -280px;
+    width:270px;
 
-    width: 270px;
+    height:100vh;
 
-    height: 100vh;
-
-    border-radius: 0;
-
-    padding: 20px;
+    border-radius:0;
 
 }
 
 .sidebar.show{
 
-    left: 0;
+    left:0;
 
 }
 
 .main-content{
 
-    margin-left: 0 !important;
-
-    width: 100%;
+    margin-left:0;
 
 }
 
