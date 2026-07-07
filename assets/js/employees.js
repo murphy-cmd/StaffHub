@@ -235,13 +235,13 @@ async function loadEmployees() {
 
             <td>
 
-                <button class="edit-btn" data-id="${emp.id}">
-                    <i class="fa-solid fa-pen"></i>
-                </button>
+               <button class="edit-btn" onclick="editEmployee(${emp.id})">
+               <i class="fa-solid fa-pen"></i>
+            </button>
 
-                <button class="delete-btn" data-id="${emp.id}">
-                    <i class="fa-solid fa-trash"></i>
-                </button>
+              <button class="delete-btn" onclick="deleteEmployee(${emp.id})">
+               <i class="fa-solid fa-trash"></i>
+            </button>
 
             </td>
 
@@ -249,5 +249,62 @@ async function loadEmployees() {
         `;
 
     });
+
+}
+// ==========================================
+// DELETE EMPLOYEE
+// ==========================================
+
+window.deleteEmployee = async function(id){
+
+    if(!confirm("Delete this employee?")) return;
+
+    const { error } = await supabase
+        .from("employees")
+        .delete()
+        .eq("id", id);
+
+    if(error){
+
+        console.error(error);
+
+        alert("Unable to delete employee.");
+
+        return;
+
+    }
+
+    loadEmployees();
+
+}
+// ==========================================
+// EDIT EMPLOYEE
+// ==========================================
+
+window.editEmployee = async function(id){
+
+    const { data, error } = await supabase
+        .from("employees")
+        .select("*")
+        .eq("id", id)
+        .single();
+
+    if(error){
+
+        console.error(error);
+
+        return;
+
+    }
+
+    document.getElementById("employeeModal").classList.add("show");
+
+    document.getElementById("employeeId").value = data.employee_id;
+
+    document.getElementById("fullName").value = data.full_name;
+
+    document.getElementById("staffType").value = data.staff_type;
+
+    document.getElementById("scheduleMode").value = data.schedule_mode;
 
 }
