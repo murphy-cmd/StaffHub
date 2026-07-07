@@ -1,4 +1,5 @@
 import { supabase } from "../../supabase/supabase-config.js";
+let editingId = null;
 // ==========================================
 // EMPLOYEES MODULE
 // ==========================================
@@ -124,50 +125,66 @@ document.getElementById("saveEmployee").addEventListener("click", saveEmployee);
 async function saveEmployee() {
 
     const employee_id = document.getElementById("employeeId").value.trim();
-
     const full_name = document.getElementById("fullName").value.trim();
-
     const staff_type = document.getElementById("staffType").value;
-
     const schedule_mode = document.getElementById("scheduleMode").value;
 
     if (!full_name || !staff_type) {
 
         alert("Please complete all required fields.");
-
         return;
 
     }
 
-    const { error } = await supabase
-        .from("employees")
-        .insert([
-            {
-                employee_id,
+    let error;
+
+    if (editingId) {
+
+        ({ error } = await supabase
+            .from("employees")
+            .update({
                 full_name,
                 staff_type,
                 schedule_mode
-            }
-        ]);
+            })
+            .eq("id", editingId));
+
+        if (!error) {
+            alert("Employee updated successfully!");
+        }
+
+        editingId = null;
+
+    } else {
+
+        ({ error } = await supabase
+            .from("employees")
+            .insert([
+                {
+                    employee_id,
+                    full_name,
+                    staff_type,
+                    schedule_mode
+                }
+            ]));
+
+        if (!error) {
+            alert("Employee saved successfully!");
+        }
+
+    }
 
     if (error) {
 
         console.error(error);
-
         alert("Failed to save employee.");
-
         return;
 
     }
 
-    alert("Employee saved successfully!");
-
     document.getElementById("employeeModal").classList.remove("show");
-
     document.getElementById("fullName").value = "";
-
     document.getElementById("staffType").value = "";
-
     document.getElementById("scheduleMode").value = "Fixed";
 
     loadEmployees();
@@ -296,15 +313,13 @@ window.editEmployee = async function(id){
         return;
 
     }
-
+    
+    editingId = data.id;
+    
     document.getElementById("employeeModal").classList.add("show");
-
     document.getElementById("employeeId").value = data.employee_id;
-
     document.getElementById("fullName").value = data.full_name;
-
     document.getElementById("staffType").value = data.staff_type;
-
     document.getElementById("scheduleMode").value = data.schedule_mode;
 
 }
