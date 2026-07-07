@@ -65,29 +65,37 @@ function initializeEmployeeModal() {
     });
 
     // Automatic Schedule
-    staffType.addEventListener("change", () => {
+staffType.addEventListener("change", () => {
 
-        if (staffType.value === "Office Staff") {
+    switch (staffType.value) {
+
+        case "Office Staff":
 
             schedule.value = "Fixed";
             schedule.disabled = true;
+            break;
 
-        }
+        case "Warehouse Staff":
 
-        else if (staffType.value === "Driver") {
+            // Admin ang pipili kung Fixed o Flexible
+            schedule.value = "Fixed";
+            schedule.disabled = false;
+            break;
+
+        case "Driver":
 
             schedule.value = "Flexible";
             schedule.disabled = true;
+            break;
 
-        }
+        default:
 
-        else {
-
+            schedule.value = "";
             schedule.disabled = false;
 
-        }
+    }
 
-    });
+});
 
 }
 
