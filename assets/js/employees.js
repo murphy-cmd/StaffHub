@@ -1,14 +1,14 @@
 import { supabase } from "../../supabase/supabase-config.js";
+
 let editingId = null;
-// ==========================================
-// EMPLOYEES MODULE
-// ==========================================
 
 document.addEventListener("DOMContentLoaded", () => {
 
     initializeEmployeeModal();
 
     loadEmployees();
+
+    initializeSearch();
 
 });
 
@@ -26,27 +26,36 @@ function initializeEmployeeModal() {
 
     const cancelBtn = document.getElementById("cancelEmployee");
 
+    const saveBtn = document.getElementById("saveEmployee");
+
     const staffType = document.getElementById("staffType");
 
     const schedule = document.getElementById("scheduleMode");
 
     const employeeId = document.getElementById("employeeId");
 
-    // Open Modal
+    const fullName = document.getElementById("fullName");
+
     addBtn.addEventListener("click", () => {
 
-    modal.classList.add("show");
+        editingId = null;
 
-    employeeId.value = generateEmployeeID();
+        modal.classList.add("show");
 
-    document.getElementById("fullName").value = "";
-    staffType.value = "";
-    schedule.value = "Fixed";
-    schedule.disabled = false;
+        employeeId.value = generateEmployeeID();
 
-});
+        fullName.value = "";
 
-    // Close Modal
+        staffType.value = "";
+
+        schedule.value = "Fixed";
+
+        schedule.disabled = false;
+
+        saveBtn.textContent = "Save Employee";
+
+    });
+
     closeBtn.addEventListener("click", () => {
 
         modal.classList.remove("show");
@@ -59,7 +68,6 @@ function initializeEmployeeModal() {
 
     });
 
-    // Close kapag click sa labas
     window.addEventListener("click", (e) => {
 
         if (e.target === modal) {
@@ -70,38 +78,38 @@ function initializeEmployeeModal() {
 
     });
 
-    // Automatic Schedule
-staffType.addEventListener("change", () => {
+    staffType.addEventListener("change", () => {
 
-    switch (staffType.value) {
+        switch (staffType.value) {
 
-        case "Office Staff":
+            case "Office Staff":
 
-            schedule.value = "Fixed";
-            schedule.disabled = true;
-            break;
+                schedule.value = "Fixed";
+                schedule.disabled = true;
+                break;
 
-        case "Warehouse Staff":
+            case "Warehouse Staff":
 
-            // Admin ang pipili kung Fixed o Flexible
-            schedule.value = "Fixed";
-            schedule.disabled = false;
-            break;
+                schedule.value = "Fixed";
+                schedule.disabled = false;
+                break;
 
-        case "Driver":
+            case "Driver":
 
-            schedule.value = "Flexible";
-            schedule.disabled = true;
-            break;
+                schedule.value = "Flexible";
+                schedule.disabled = true;
+                break;
 
-        default:
+            default:
 
-            schedule.value = "";
-            schedule.disabled = false;
+                schedule.value = "";
+                schedule.disabled = false;
 
-    }
+        }
 
-});
+    });
+
+    saveBtn.addEventListener("click", saveEmployee);
 
 }
 
@@ -116,29 +124,38 @@ function generateEmployeeID() {
     return "EMP-" + number.toString().padStart(4, "0");
 
 }
-// ==========================================
-// SAVE EMPLOYEE
-// ==========================================
 
-document.getElementById("saveEmployee").addEventListener("click", saveEmployee);
+// ==========================================
+// SAVE / UPDATE EMPLOYEE
+// ==========================================
 
 async function saveEmployee() {
 
+    const modal = document.getElementById("employeeModal");
+
     const employee_id = document.getElementById("employeeId").value.trim();
+
     const full_name = document.getElementById("fullName").value.trim();
+
     const staff_type = document.getElementById("staffType").value;
+
     const schedule_mode = document.getElementById("scheduleMode").value;
 
     if (!full_name || !staff_type) {
 
         alert("Please complete all required fields.");
+
         return;
 
     }
 
     let error;
 
-    if (editingId) {
+    // ==========================================
+    // UPDATE
+    // ==========================================
+
+    if (editingId !== null) {
 
         ({ error } = await supabase
             .from("employees")
@@ -150,12 +167,18 @@ async function saveEmployee() {
             .eq("id", editingId));
 
         if (!error) {
+
             alert("Employee updated successfully!");
+
         }
 
-        editingId = null;
+    }
 
-    } else {
+    // ==========================================
+    // INSERT
+    // ==========================================
+
+    else {
 
         ({ error } = await supabase
             .from("employees")
@@ -169,7 +192,9 @@ async function saveEmployee() {
             ]));
 
         if (!error) {
-            alert("Employee saved successfully!");
+
+            alert("Employee added successfully!");
+
         }
 
     }
@@ -177,15 +202,16 @@ async function saveEmployee() {
     if (error) {
 
         console.error(error);
-        alert("Failed to save employee.");
+
+        alert(error.message);
+
         return;
 
     }
 
-    document.getElementById("employeeModal").classList.remove("show");
-    document.getElementById("fullName").value = "";
-    document.getElementById("staffType").value = "";
-    document.getElementById("scheduleMode").value = "Fixed";
+    editingId = null;
+
+    modal.classList.remove("show");
 
     loadEmployees();
 
@@ -203,7 +229,7 @@ async function loadEmployees() {
     const { data, error } = await supabase
         .from("employees")
         .select("*")
-        .order("employee_id", { ascending: true });
+        .order("employee_id");
 
     if (error) {
 
@@ -215,23 +241,28 @@ async function loadEmployees() {
 
     data.forEach(emp => {
 
-        let staffClass = "";
+        let badge = "";
 
         if (emp.staff_type === "Office Staff") {
 
-            staffClass = "office";
+            badge = "office";
 
-        } else if (emp.staff_type === "Warehouse Staff") {
+        }
 
-            staffClass = "warehouse";
+        else if (emp.staff_type === "Warehouse Staff") {
 
-        } else {
+            badge = "warehouse";
 
-            staffClass = "driver";
+        }
+
+        else {
+
+            badge = "driver";
 
         }
 
         tbody.innerHTML += `
+
         <tr>
 
             <td>${emp.employee_id}</td>
@@ -239,59 +270,50 @@ async function loadEmployees() {
             <td>${emp.full_name}</td>
 
             <td>
-                <span class="badge ${staffClass}">
+
+                <span class="badge ${badge}">
+
                     ${emp.staff_type}
+
                 </span>
+
             </td>
 
             <td>
-                <span class="badge ${staffClass}">
+
+                <span class="badge ${badge}">
+
                     ${emp.schedule_mode}
+
                 </span>
+
             </td>
 
             <td>
 
-               <button class="edit-btn" onclick="editEmployee(${emp.id})">
-               <i class="fa-solid fa-pen"></i>
-            </button>
+                <button
+                    class="edit-btn"
+                    onclick="editEmployee(${emp.id})">
 
-              <button class="delete-btn" onclick="deleteEmployee(${emp.id})">
-               <i class="fa-solid fa-trash"></i>
-            </button>
+                    <i class="fa-solid fa-pen"></i>
+
+                </button>
+
+                <button
+                    class="delete-btn"
+                    onclick="deleteEmployee(${emp.id})">
+
+                    <i class="fa-solid fa-trash"></i>
+
+                </button>
 
             </td>
 
         </tr>
+
         `;
 
     });
-
-}
-// ==========================================
-// DELETE EMPLOYEE
-// ==========================================
-
-window.deleteEmployee = async function(id){
-
-    if(!confirm("Delete this employee?")) return;
-
-    const { error } = await supabase
-        .from("employees")
-        .delete()
-        .eq("id", id);
-
-    if(error){
-
-        console.error(error);
-
-        alert("Unable to delete employee.");
-
-        return;
-
-    }
-
-    loadEmployees();
 
 }
 // ==========================================
@@ -299,6 +321,10 @@ window.deleteEmployee = async function(id){
 // ==========================================
 
 window.editEmployee = async function(id){
+
+    const modal = document.getElementById("employeeModal");
+
+    const saveBtn = document.getElementById("saveEmployee");
 
     const { data, error } = await supabase
         .from("employees")
@@ -313,13 +339,75 @@ window.editEmployee = async function(id){
         return;
 
     }
-    
-    editingId = data.id;
-    
-    document.getElementById("employeeModal").classList.add("show");
+
+    editingId = id;
+
     document.getElementById("employeeId").value = data.employee_id;
+
     document.getElementById("fullName").value = data.full_name;
+
     document.getElementById("staffType").value = data.staff_type;
+
     document.getElementById("scheduleMode").value = data.schedule_mode;
+
+    saveBtn.textContent = "Update Employee";
+
+    modal.classList.add("show");
+
+}
+// ==========================================
+// DELETE EMPLOYEE
+// ==========================================
+
+window.deleteEmployee = async function(id){
+
+    if(!confirm("Are you sure you want to delete this employee?")){
+
+        return;
+
+    }
+
+    const { error } = await supabase
+        .from("employees")
+        .delete()
+        .eq("id", id);
+
+    if(error){
+
+        console.error(error);
+
+        alert(error.message);
+
+        return;
+
+    }
+
+    alert("Employee deleted successfully!");
+
+    loadEmployees();
+
+}
+// ==========================================
+// SEARCH
+// ==========================================
+
+function initializeSearch(){
+
+    const search = document.getElementById("searchEmployee");
+
+    search.addEventListener("keyup", () => {
+
+        const keyword = search.value.toLowerCase();
+
+        document.querySelectorAll("#employeeTable tr").forEach(row => {
+
+            row.style.display =
+                row.innerText.toLowerCase().includes(keyword)
+                ? ""
+                : "none";
+
+        });
+
+    });
 
 }
