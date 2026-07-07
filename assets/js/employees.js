@@ -34,11 +34,16 @@ function initializeEmployeeModal() {
     // Open Modal
     addBtn.addEventListener("click", () => {
 
-        modal.classList.add("show");
+    modal.classList.add("show");
 
-        employeeId.value = generateEmployeeID();
+    employeeId.value = generateEmployeeID();
 
-    });
+    document.getElementById("fullName").value = "";
+    staffType.value = "";
+    schedule.value = "Fixed";
+    schedule.disabled = false;
+
+});
 
     // Close Modal
     closeBtn.addEventListener("click", () => {
