@@ -94,10 +94,9 @@ async function loadAttendanceEmployees() {
             .eq("attendance_date", today)
             .maybeSingle();
 
-        container.innerHTML += createEmployeeCard(
-            employee,
-            attendance
-        );
+        const card = document.createElement("div");
+        card.innerHTML = createEmployeeCard(employee, attendance);
+        container.appendChild(card.firstElementChild);
 
     }
 
@@ -239,32 +238,68 @@ function createEmployeeCard(employee, attendance) {
 
     </div>
 
-    <div class="work-summary">
+ <div class="work-summary">
 
-        <div class="work-card">
+    <div class="work-card">
 
-            <span>Work Hours</span>
+        <span>Work Hours</span>
 
-            <h4 class="workHours">--</h4>
-
-        </div>
-
-        <div class="work-card">
-
-            <span>OT</span>
-
-            <h4 class="otHours">--</h4>
-
-        </div>
+        <h4 class="workHours">
+            ${workHours} mins
+        </h4>
 
     </div>
 
-    <div class="card-actions">
+    <div class="work-card">
 
-        <button
-            class="editAttendance"
-            data-id="${employee.id}"
-        >
+        <span>OT</span>
+
+        <h4 class="otHours">
+            ${otMinutes} mins
+        </h4>
+
+    </div>
+
+</div>
+
+<!-- ADD THIS HERE -->
+
+<div class="employee-info">
+
+    <div class="info-box">
+
+        <span>Time In</span>
+
+        <strong>${timeIn}</strong>
+
+    </div>
+
+    <div class="info-box">
+
+        <span>Break</span>
+
+        <strong>${breakTime}</strong>
+
+    </div>
+
+    <div class="info-box">
+
+        <span>Time Out</span>
+
+        <strong>${timeOut}</strong>
+
+    </div>
+
+</div>
+
+<!-- END -->
+
+<div class="card-actions">
+
+    <button
+        class="editAttendance"
+        data-id="${employee.id}"
+    >
 
             <i class="fa-solid fa-pen"></i>
 
