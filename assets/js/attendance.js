@@ -462,14 +462,11 @@ async function timeInEmployee(checkbox){
 
         .eq("employee_id",employee.employee_id);
 
-    // Save Log
 
    // Save Log
 
 await supabase
-
     .from("attendance_logs")
-
     .insert({
 
         employee_id: employee.employee_id,
@@ -480,46 +477,11 @@ await supabase
 
     });
 
-// Disable Time In
-
-
-if (card) {
-
-    const breakCheckbox = card.querySelector(".breakTime");
-
-    if (breakCheckbox) {
-
-        breakCheckbox.disabled = false;
-
-    }
-
-}
-
-// Reload
 loadAttendanceEmployees();
 
 }
-    // -------------------------
-    // BREAK
-    // -------------------------
 
-    if(e.target.classList.contains("breakTime")){
 
-        await breakEmployee(e.target);
-
-    }
-
-    // -------------------------
-    // TIME OUT
-    // -------------------------
-
-    if(e.target.classList.contains("timeOut")){
-
-        await timeOutEmployee(e.target);
-
-    }
-
-}
 // ==========================================
 // COMPUTE WORK HOURS
 // ==========================================
