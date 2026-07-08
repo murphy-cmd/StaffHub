@@ -61,7 +61,7 @@ function startClock() {
 }
 
 // ==========================================
-// LOAD EMPLOYEES
+// LOAD ATTENDANCE EMPLOYEES
 // ==========================================
 
 async function loadAttendanceEmployees() {
@@ -69,6 +69,8 @@ async function loadAttendanceEmployees() {
     const container = document.getElementById("attendanceContainer");
 
     container.innerHTML = "";
+
+    const today = new Date().toISOString().split("T")[0];
 
     const { data: employees, error } = await supabase
         .from("employees")
@@ -85,8 +87,6 @@ async function loadAttendanceEmployees() {
 
     for (const employee of employees) {
 
-        const today = new Date().toISOString().split("T")[0];
-
         const { data: attendance } = await supabase
             .from("attendance_daily")
             .select("*")
@@ -94,12 +94,17 @@ async function loadAttendanceEmployees() {
             .eq("attendance_date", today)
             .maybeSingle();
 
-        const card = document.createElement("div");
-        card.innerHTML = createEmployeeCard(employee, attendance);
-        container.appendChild(card.firstElementChild);
+        const wrapper = document.createElement("div");
 
+        wrapper.innerHTML = createEmployeeCard(
+            employee,
+            attendance
+        );
+        container.appendChild(
+            wrapper.firstElementChild
+        );
     }
-
+    filterAttendanceCards();
 }
 // ==========================================
 // CREATE EMPLOYEE CARD
@@ -118,35 +123,45 @@ function createEmployeeCard(employee, attendance) {
         .join("")
         .substring(0,2);
 
-    // ==========================
-    // ATTENDANCE DATA
-    // ==========================
+  // ==========================================
+// ATTENDANCE DATA
+// ==========================================
 
-    const status = attendance
-        ? attendance.attendance_status
-        : "OFF DUTY";
+const status = attendance
+    ? attendance.attendance_status
+    : "OFF DUTY";
 
-    const timeIn = attendance?.time_in
-        ? new Date(attendance.time_in).toLocaleTimeString()
-        : "--";
+const timeIn = attendance?.time_in
+    ? new Date(attendance.time_in).toLocaleTimeString()
+    : "--";
 
-    const breakTime = attendance?.break_time
-        ? new Date(attendance.break_time).toLocaleTimeString()
-        : "--";
+const breakTime = attendance?.break_time
+    ? new Date(attendance.break_time).toLocaleTimeString()
+    : "--";
 
-    const timeOut = attendance?.time_out
-        ? new Date(attendance.time_out).toLocaleTimeString()
-        : "--";
+const timeOut = attendance?.time_out
+    ? new Date(attendance.time_out).toLocaleTimeString()
+    : "--";
 
-    const workHours = attendance
-        ? attendance.work_minutes
-        : 0;
+const workHours = attendance
+    ? attendance.work_minutes
+    : 0;
 
-    const otMinutes = attendance
-        ? attendance.ot_minutes
-        : 0;
+const otMinutes = attendance
+    ? attendance.ot_minutes
+    : 0;
 
-    return `
+// ==========================================
+// CHECKBOX STATES
+// ==========================================
+
+const hasTimeIn = !!attendance?.time_in;
+
+const hasBreak = !!attendance?.break_time;
+
+const hasTimeOut = !!attendance?.time_out;
+
+return `
 
       
 
@@ -200,11 +215,12 @@ function createEmployeeCard(employee, attendance) {
 
         <label class="checkbox-item">
 
-            <input
-                type="checkbox"
-                class="timeIn"
-                data-id="${employee.id}"
-            >
+           <input
+    type="checkbox"
+    class="timeIn"
+    data-id="${employee.employee_id}"
+    ${hasTimeIn ? "checked disabled" : ""}
+>
 
             <span>Time In</span>
 
@@ -212,12 +228,13 @@ function createEmployeeCard(employee, attendance) {
 
         <label class="checkbox-item">
 
-            <input
-                type="checkbox"
-                class="breakTime"
-                data-id="${employee.id}"
-                disabled
-            >
+           <input
+    type="checkbox"
+    class="breakTime"
+    data-id="${employee.employee_id}"
+    ${hasBreak ? "checked disabled" : ""}
+    ${hasTimeIn && !hasBreak ? "" : "disabled"}
+>
 
             <span>Break</span>
 
@@ -226,11 +243,12 @@ function createEmployeeCard(employee, attendance) {
         <label class="checkbox-item">
 
             <input
-                type="checkbox"
-                class="timeOut"
-                data-id="${employee.id}"
-                disabled
-            >
+    type="checkbox"
+    class="timeOut"
+    data-id="${employee.employee_id}"
+    ${hasTimeOut ? "checked disabled" : ""}
+    ${hasBreak && !hasTimeOut ? "" : "disabled"}
+>
 
             <span>Time Out</span>
 
