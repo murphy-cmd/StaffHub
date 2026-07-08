@@ -150,7 +150,7 @@ function createEmployeeCard(employee, attendance) {
 
       
 
-<div class="employee-card" data-id="${employee.id}">
+<div class="employee-card" data-id="${employee.employee_id}">
 
     <div class="employee-header">
 
@@ -315,22 +315,24 @@ function createEmployeeCard(employee, attendance) {
 
 }
 // ==========================================
-// ATTENDANCE EVENTS
+// TIME IN
 // ==========================================
 
-document.addEventListener("change", async (e)=>{
+document.addEventListener("click", async (e) => {
 
-    if(!e.target.classList.contains("timeIn")) return;
+    if (!e.target.classList.contains("timeIn")) return;
 
-    if(!e.target.checked) return;
+    const checkbox = e.target;
 
-    const employeeId = e.target.dataset.id;
+    if (checkbox.disabled) return;
+
+    const employeeId = checkbox.dataset.id;
+
+    const today = new Date().toISOString().split("T")[0];
 
     const now = new Date();
 
-    const today = now.toISOString().split("T")[0];
-
-    // Check kung meron na ngayong attendance
+    // Check existing attendance
     const { data: existing } = await supabase
         .from("attendance_daily")
         .select("*")
@@ -338,13 +340,13 @@ document.addEventListener("change", async (e)=>{
         .eq("attendance_date", today)
         .maybeSingle();
 
-    if(existing){
+    if (existing) {
 
-        alert("Employee already timed in today.");
+        alert("Employee already timed in.");
 
-        e.target.checked = true;
+        checkbox.checked = true;
 
-        e.target.disabled = true;
+        checkbox.disabled = true;
 
         return;
 
@@ -362,17 +364,17 @@ document.addEventListener("change", async (e)=>{
 
             time_in: now,
 
-            attendance_status:"Working"
+            attendance_status: "Working"
 
         });
 
-    if(error){
+    if (error) {
 
         console.error(error);
 
-        alert("Time In failed.");
+        alert("Time In Failed");
 
-        e.target.checked=false;
+        checkbox.checked = false;
 
         return;
 
@@ -384,13 +386,17 @@ document.addEventListener("change", async (e)=>{
 
         .update({
 
-            attendance_status:"Working",
+            attendance_status: "Working",
 
-            is_working:true
+            is_working: true
 
         })
 
-        .eq("employee_id",employeeId);
+        .eq("employee_id", employeeId);
+
+    checkbox.checked = true;
+
+    checkbox.disabled = true;
 
     loadAttendanceEmployees();
 
