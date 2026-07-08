@@ -561,4 +561,57 @@ function initializeFilter() {
     });
 
 }
+// ==========================================
+// FILTER ATTENDANCE CARDS
+// ==========================================
 
+function filterAttendanceCards() {
+
+    const keyword = document
+        .getElementById("searchEmployee")
+        .value
+        .toLowerCase();
+
+    const filter = document
+        .getElementById("attendanceFilter")
+        .value;
+
+    const cards = document.querySelectorAll(".employee-card");
+
+    cards.forEach(card => {
+
+        const name = card.querySelector("h3").textContent.toLowerCase();
+
+        const type = card
+            .querySelector(".employee-details p")
+            .textContent;
+
+        const status = card
+            .querySelector(".attendanceStatus")
+            .textContent;
+
+        let visible = true;
+
+        // Search
+        if (!name.includes(keyword)) {
+
+            visible = false;
+
+        }
+
+        // Filter
+        if (filter !== "all") {
+
+            if (type !== filter && status !== filter) {
+
+                visible = false;
+
+            }
+
+        }
+
+        card.style.display = visible ? "" : "none";
+
+    });
+
+}
