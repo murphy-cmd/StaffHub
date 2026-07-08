@@ -388,7 +388,11 @@ async function timeInEmployee(checkbox) {
     const { data: attendance } = await supabase
         .from("attendance_daily")
         .select("*")
-        .eq("employee_id", employeeId)
+      .eq("employee_id", employeeId)
+      .is("time_out", null)
+      .order("created_at", { ascending: false })
+      .limit(1)
+      .maybeSingle();
         .eq("attendance_date", today)
         .maybeSingle();
 
@@ -400,6 +404,86 @@ async function timeInEmployee(checkbox) {
         return;
 
     }
+    // ==========================================
+// BREAK
+// ==========================================
+
+async function breakEmployee(checkbox) {
+
+    if (checkbox.disabled) return;
+
+    const employeeId = checkbox.dataset.id;
+
+    const now = new Date();
+
+    const { data: attendance, error } = await supabase
+        .from("attendance_daily")
+        .select("*")
+        .eq("employee_id", employeeId)
+        .is("time_out", null)
+        .order("created_at", { ascending: false })
+        .limit(1)
+        .maybeSingle();
+
+    if (error) {
+
+        console.error(error);
+        return;
+
+    }
+
+    if (!attendance) {
+
+        alert("No active attendance found.");
+        return;
+
+    }
+
+    if (attendance.break_time) {
+
+        checkbox.checked = true;
+        checkbox.disabled = true;
+        return;
+
+    }
+
+    // Save Break
+    const { error: updateError } = await supabase
+        .from("attendance_daily")
+        .update({
+            break_time: now,
+            attendance_status: "BREAK"
+        })
+        .eq("id", attendance.id);
+
+    if (updateError) {
+
+        console.error(updateError);
+        return;
+
+    }
+
+    // Update employee
+    await supabase
+        .from("employees")
+        .update({
+            attendance_status: "BREAK"
+        })
+        .eq("employee_id", employeeId);
+
+    // Log
+    await supabase
+        .from("attendance_logs")
+        .insert([{
+            employee_id: employeeId,
+            attendance_date: attendance.attendance_date,
+            action: "BREAK",
+            log_time: now
+        }]);
+
+    await loadAttendanceEmployees();
+
+}
 
     // Get employee
     const { data: employee, error: employeeError } = await supabase
