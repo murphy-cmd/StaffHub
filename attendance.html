@@ -1,1 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>WorkSync - Attendance</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/sidebar.css">
+    <link rel="stylesheet" href="assets/css/dashboard.css">
+    <link rel="stylesheet" href="assets/css/attendance.css">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+</head>
+
+<body>
+
+<!-- ===========================
+     SIDEBAR
+=========================== -->
+
+<aside class="sidebar">
+
+    <div class="logo">
+        <i class="fa-solid fa-layer-group"></i>
+        <span>WorkSync</span>
+    </div>
+
+    <ul class="menu">
+
+        <li>
+            <a href="dashboard.html">
+                <i class="fa-solid fa-house"></i>
+                <span>Dashboard</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="employees.html">
+                <i class="fa-solid fa-users"></i>
+                <span>Employees</span>
+            </a>
+        </li>
+
+        <li class="active">
+            <a href="attendance.html">
+                <i class="fa-solid fa-clock"></i>
+                <span>Attendance</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="projects.html">
+                <i class="fa-solid fa-folder-open"></i>
+                <span>Projects</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="drivers.html">
+                <i class="fa-solid fa-truck"></i>
+                <span>Drivers</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="leave.html">
+                <i class="fa-solid fa-calendar-check"></i>
+                <span>Leave</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="reports.html">
+                <i class="fa-solid fa-chart-column"></i>
+                <span>Reports</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="settings.html">
+                <i class="fa-solid fa-gear"></i>
+                <span>Settings</span>
+            </a>
+        </li>
+
+    </ul>
+
+</aside>
+
+<!-- ===========================
+     MAIN CONTENT
+=========================== -->
+
+<main class="main-content">
+
+<header class="topbar">
+
+    <div class="header-left">
+
+        <button id="menuToggle" class="menu-btn">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+
+        <div class="page-title">
+            <h2>Attendance</h2>
+            <p>Manage employee attendance.</p>
+        </div>
+
+    </div>
+
+    <div class="header-right">
+
+        <div class="clock">
+            <i class="fa-regular fa-calendar"></i>
+            <span id="liveDate"></span>
+        </div>
+
+        <div class="clock">
+            <i class="fa-regular fa-clock"></i>
+            <span id="liveClock"></span>
+        </div>
+
+    </div>
+
+</header>
+
+<section class="dashboard">
+
+<!-- ===========================
+     SUMMARY CARDS
+=========================== -->
+
+<div class="cards">
+
+    <div class="card">
+        <div class="card-info">
+            <span>Present</span>
+            <h2 id="presentCount">0</h2>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-info">
+            <span>Late</span>
+            <h2 id="lateCount">0</h2>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-info">
+            <span>Half Day</span>
+            <h2 id="halfDayCount">0</h2>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-info">
+            <span>Working</span>
+            <h2 id="workingCount">0</h2>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-info">
+            <span>On Trip</span>
+            <h2 id="tripCount">0</h2>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-info">
+            <span>Leave</span>
+            <h2 id="leaveCount">0</h2>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-info">
+            <span>Absent</span>
+            <h2 id="absentCount">0</h2>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-info">
+            <span>OT Today</span>
+            <h2 id="otCount">0</h2>
+        </div>
+    </div>
+
+</div>
+
+<!-- ===========================
+     SEARCH
+=========================== -->
+
+<div class="table-header">
+
+    <input
+        type="text"
+        id="searchEmployee"
+        placeholder="Search Employee..."
+    >
+
+    <select id="attendanceFilter">
+
+        <option value="all">All Employees</option>
+        <option value="Office Staff">Office Staff</option>
+        <option value="Warehouse Staff">Warehouse Staff</option>
+        <option value="Driver">Driver</option>
+        <option value="Working">Working</option>
+        <option value="Late">Late</option>
+        <option value="Leave">Leave</option>
+
+    </select>
+
+</div>
+
+<!-- ===========================
+     EMPLOYEE CARDS
+=========================== -->
+
+<div id="attendanceContainer" class="attendance-container">
+
+<!-- Employee Cards will load here -->
+
+</div>
+<!-- ==========================================
+     ATTENDANCE CORRECTION MODAL
+========================================== -->
+
+<div id="attendanceModal" class="modal">
+
+    <div class="modal-content">
+
+        <div class="modal-header">
+
+            <h2>Attendance Correction</h2>
+
+            <button id="closeAttendanceModal">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+        </div>
+
+        <div class="modal-body">
+
+            <div class="form-group">
+
+                <label>Employee</label>
+
+                <input
+                    type="text"
+                    id="modalEmployee"
+                    readonly
+                >
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Current Time In</label>
+
+                <input
+                    type="text"
+                    id="currentTimeIn"
+                    readonly
+                >
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Correct Time In</label>
+
+                <input
+                    type="time"
+                    id="correctTimeIn"
+                >
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Current Break</label>
+
+                <input
+                    type="text"
+                    id="currentBreak"
+                    readonly
+                >
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Correct Break</label>
+
+                <input
+                    type="time"
+                    id="correctBreak"
+                >
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Current Time Out</label>
+
+                <input
+                    type="text"
+                    id="currentTimeOut"
+                    readonly
+                >
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Correct Time Out</label>
+
+                <input
+                    type="time"
+                    id="correctTimeOut"
+                >
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Reason</label>
+
+                <textarea
+                    id="correctionReason"
+                    rows="4"
+                    placeholder="Enter correction reason..."
+                ></textarea>
+
+            </div>
+
+        </div>
+
+        <div class="modal-footer">
+
+            <button id="cancelCorrection">
+
+                Cancel
+
+            </button>
+
+            <button id="saveCorrection">
+
+                Save Correction
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+</section>
+
+</main>
+
+<!-- ==========================================
+     JAVASCRIPT
+========================================== -->
+
+<script src="assets/js/sidebar.js"></script>
+
+<script type="module" src="assets/js/attendance.js"></script>
+
+</body>
+
+</html>
