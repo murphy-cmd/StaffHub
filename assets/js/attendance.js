@@ -228,7 +228,7 @@ return `
 
         <label class="checkbox-item">
 
-           <input
+        <input
     type="checkbox"
     class="breakTime"
     data-id="${employee.employee_id}"
@@ -372,130 +372,95 @@ async function handleAttendanceChange(e) {
 
 }
 
-  // ==========================================
+// ==========================================
 // TIME IN
 // ==========================================
 
-async function timeInEmployee(checkbox){
+async function timeInEmployee(checkbox) {
 
-    if(checkbox.disabled) return;
+    if (checkbox.disabled) return;
 
     const employeeId = checkbox.dataset.id;
-
-    const today = new Date().toISOString().split("T")[0];
+    const now = new Date();
+    const today = now.toISOString().split("T")[0];
 
     // Check existing attendance
-
-    const { data: existing } = await supabase
-
+    const { data: attendance } = await supabase
         .from("attendance_daily")
-
         .select("*")
-
-        .eq("employee_id",employeeId)
-
-        .eq("attendance_date",today)
-
+        .eq("employee_id", employeeId)
+        .eq("attendance_date", today)
         .maybeSingle();
 
-    if(existing){
+    if (attendance) {
 
-        checkbox.checked=true;
-
-        checkbox.disabled=true;
+        checkbox.checked = true;
+        checkbox.disabled = true;
 
         return;
 
     }
 
     // Get employee
-
-    const { data: employee } = await supabase
-
+    const { data: employee, error: employeeError } = await supabase
         .from("employees")
-
         .select("*")
-
-        .eq("employee_id",employeeId)
-
+        .eq("employee_id", employeeId)
         .single();
 
-    if(!employee){
+    if (employeeError) {
 
+        console.error(employeeError);
         alert("Employee not found.");
-
         return;
 
     }
-
-    const now = new Date();
 
     // Save attendance
-
     const { error } = await supabase
-
         .from("attendance_daily")
+        .insert([{
+            employee_id: employee.employee_id,
+            attendance_date: today,
+            staff_type: employee.staff_type,
+            schedule_mode: employee.schedule_mode,
+            attendance_type:
+                employee.staff_type === "Driver"
+                    ? "Driver"
+                    : employee.schedule_mode,
+            attendance_status: "WORKING",
+            time_in: now
+        }]);
 
-        .insert({
-
-            employee_id:employee.employee_id,
-
-            attendance_date:today,
-
-            staff_type:employee.staff_type,
-
-            schedule_mode:employee.schedule_mode,
-
-            attendance_type:employee.schedule_mode,
-
-            attendance_status:"WORKING",
-
-            time_in:now
-
-        });
-
-    if(error){
+    if (error) {
 
         console.error(error);
-
         alert(error.message);
-
         return;
 
     }
 
-    // Update employee
-
+    // Update employee status
     await supabase
-
         .from("employees")
-
         .update({
-
-            attendance_status:"WORKING",
-
-            is_working:true
-
+            attendance_status: "WORKING",
+            is_working: true
         })
+        .eq("employee_id", employee.employee_id);
 
-        .eq("employee_id",employee.employee_id);
+    // Save log
+    await supabase
+        .from("attendance_logs")
+        .insert([{
+            employee_id: employee.employee_id,
+            attendance_date: today,
+            action: "TIME IN",
+            log_time: now
+        }]);
 
-
-   // Save Log
-
-await supabase
-    .from("attendance_logs")
-    .insert({
-
-        employee_id: employee.employee_id,
-
-        attendance_date: today,
-
-        action: "TIME IN"
-
-    });
-
-loadAttendanceEmployees();
+    // Reload cards
+    await loadAttendanceEmployees();
 
 }
 
