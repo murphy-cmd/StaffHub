@@ -167,9 +167,9 @@ function createEmployeeCard(employee, attendance) {
 
             <p>${type}</p>
 
-            <span class="status working">
-                Ready
-            </span>
+           <span class="status working">
+              ${status}
+           </span>
 
         </div>
 
@@ -189,9 +189,9 @@ function createEmployeeCard(employee, attendance) {
 
             <span>Attendance</span>
 
-            <strong class="attendanceStatus">
-                Not Started
-            </strong>
+           <strong class="attendanceStatus">
+               ${status}
+           </strong>
 
         </div>
 
@@ -406,5 +406,40 @@ function computeAttendance(card){
 
     card.querySelector(".status").textContent =
         "Present";
+
+}
+// ==========================================
+// SEARCH
+// ==========================================
+
+function initializeSearch() {
+
+    const search = document.getElementById("searchEmployee");
+
+    if (!search) return;
+
+    search.addEventListener("input", () => {
+
+        loadAttendanceEmployees();
+
+    });
+
+}
+
+// ==========================================
+// FILTER
+// ==========================================
+
+function initializeFilter() {
+
+    const filter = document.getElementById("attendanceFilter");
+
+    if (!filter) return;
+
+    filter.addEventListener("change", () => {
+
+        loadAttendanceEmployees();
+
+    });
 
 }
