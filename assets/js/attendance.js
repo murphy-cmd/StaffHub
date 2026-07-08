@@ -315,42 +315,104 @@ function createEmployeeCard(employee, attendance) {
 
 }
 // ==========================================
+// ATTENDANCE EVENTS
+// ==========================================
+
+document.addEventListener("change", handleAttendanceChange);
+
+async function handleAttendanceChange(e) {
+
+    if (e.target.classList.contains("timeIn")) {
+
+        if (e.target.checked) {
+
+            await timeInEmployee(e.target);
+
+        }
+
+    }
+
+    if (e.target.classList.contains("breakTime")) {
+
+        if (e.target.checked) {
+
+            await breakEmployee(e.target);
+
+        }
+
+    }
+
+    if (e.target.classList.contains("timeOut")) {
+
+        if (e.target.checked) {
+
+            await timeOutEmployee(e.target);
+
+        }
+
+    }
+
+}
+
+  // ==========================================
 // TIME IN
 // ==========================================
 
-document.addEventListener("click", async (e) => {
+async function timeInEmployee(checkbox){
 
-    if (!e.target.classList.contains("timeIn")) return;
-
-    const checkbox = e.target;
-
-    if (checkbox.disabled) return;
+    if(checkbox.disabled) return;
 
     const employeeId = checkbox.dataset.id;
 
     const today = new Date().toISOString().split("T")[0];
 
-    const now = new Date();
-
     // Check existing attendance
+
     const { data: existing } = await supabase
+
         .from("attendance_daily")
+
         .select("*")
-        .eq("employee_id", employeeId)
-        .eq("attendance_date", today)
+
+        .eq("employee_id",employeeId)
+
+        .eq("attendance_date",today)
+
         .maybeSingle();
 
-    if (existing) {
+    if(existing){
 
-        alert("Employee already timed in.");
+        checkbox.checked=true;
 
-        checkbox.checked = true;
-
-        checkbox.disabled = true;
+        checkbox.disabled=true;
 
         return;
 
     }
+
+    // Get employee
+
+    const { data: employee } = await supabase
+
+        .from("employees")
+
+        .select("*")
+
+        .eq("employee_id",employeeId)
+
+        .single();
+
+    if(!employee){
+
+        alert("Employee not found.");
+
+        return;
+
+    }
+
+    const now = new Date();
+
+    // Save attendance
 
     const { error } = await supabase
 
@@ -358,27 +420,33 @@ document.addEventListener("click", async (e) => {
 
         .insert({
 
-            employee_id: employeeId,
+            employee_id:employee.employee_id,
 
-            attendance_date: today,
+            attendance_date:today,
 
-            time_in: now,
+            staff_type:employee.staff_type,
 
-            attendance_status: "Working"
+            schedule_mode:employee.schedule_mode,
+
+            attendance_type:employee.schedule_mode,
+
+            attendance_status:"WORKING",
+
+            time_in:now
 
         });
 
-    if (error) {
+    if(error){
 
         console.error(error);
 
-        alert("Time In Failed");
-
-        checkbox.checked = false;
+        alert(error.message);
 
         return;
 
     }
+
+    // Update employee
 
     await supabase
 
@@ -386,21 +454,72 @@ document.addEventListener("click", async (e) => {
 
         .update({
 
-            attendance_status: "Working",
+            attendance_status:"WORKING",
 
-            is_working: true
+            is_working:true
 
         })
 
-        .eq("employee_id", employeeId);
+        .eq("employee_id",employee.employee_id);
 
-    checkbox.checked = true;
+    // Save Log
 
-    checkbox.disabled = true;
+   // Save Log
 
-    loadAttendanceEmployees();
+await supabase
 
-});
+    .from("attendance_logs")
+
+    .insert({
+
+        employee_id: employee.employee_id,
+
+        attendance_date: today,
+
+        action: "TIME IN"
+
+    });
+
+// Disable Time In
+
+
+if (card) {
+
+    const breakCheckbox = card.querySelector(".breakTime");
+
+    if (breakCheckbox) {
+
+        breakCheckbox.disabled = false;
+
+    }
+
+}
+
+// Reload
+loadAttendanceEmployees();
+
+}
+    // -------------------------
+    // BREAK
+    // -------------------------
+
+    if(e.target.classList.contains("breakTime")){
+
+        await breakEmployee(e.target);
+
+    }
+
+    // -------------------------
+    // TIME OUT
+    // -------------------------
+
+    if(e.target.classList.contains("timeOut")){
+
+        await timeOutEmployee(e.target);
+
+    }
+
+}
 // ==========================================
 // COMPUTE WORK HOURS
 // ==========================================
@@ -459,11 +578,7 @@ function initializeSearch() {
 
     if (!search) return;
 
-    search.addEventListener("input", () => {
-
-        loadAttendanceEmployees();
-
-    });
+    search.addEventListener("keyup", filterAttendanceCards);
 
 }
 
@@ -484,3 +599,4 @@ function initializeFilter() {
     });
 
 }
+
